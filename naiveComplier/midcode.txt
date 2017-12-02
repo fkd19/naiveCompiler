@@ -1,0 +1,368 @@
+const int con_a                                              = 0
+const int con_b                                              = 1
+const char con_c1                                             = 48
+const char con_c2                                             = 115
+const char con_c3                                             = 43
+const char con_c4                                             = 42
+var int result                                            
+var int var_b                                             [10]
+var char var_d                                             [9]
+var char var_c                                             
+int factorial                                         ()
+para int n                                                 
+para int no_use                                            
+const int max                                                = 2147483647
+var int ans                                               
+n                                                  == 0
+BZ label0
+ret = 1
+label0:
+n                                                  != 0
+BZ label1
+t2=n                                                  - 1
+push t2
+push 0
+call factorial                                         
+t3=n                                                  * ret
+ans                                                = t3
+label1:
+ret = ans                                               
+void getresult                                         ()
+para int n                                                 
+const int max                                                = 2147483647
+var int a                                                 
+push n                                                 
+push 0
+call factorial                                         
+result                                             = ret
+int count                                             ()
+para int a                                                 
+var int k                                                 
+k                                                  = 0
+a                                                  < 0
+BZ label4
+t5=0 - a                                                 
+a                                                  = t5
+label4:
+label6:
+t7=0 - k                                                 
+t8=0 - t7
+t9=t8 + 1
+k                                                  = t9
+t10=a                                                  / 10
+a                                                  = t10
+a                                                  >= 10
+BNZ label6
+t11=k                                                  + 1
+ret = t11
+void print_start                                       ()
+prt p	
+prt l	
+prt e	
+prt a	
+prt s	
+prt e	
+prt  	
+prt i	
+prt n	
+prt p	
+prt u	
+prt t	
+prt  	
+prt a	
+prt  	
+prt n	
+prt u	
+prt m	
+prt b	
+prt e	
+prt r	
+ret
+void test_empty                                        ()
+void main()
+var int n                                                 
+var int length                                            
+var int aa                                                
+var int bb                                                
+var char var_foo                                           
+var_foo                                            = C	
+t12=0 - 1
+n                                                  = t12
+t13=0 - 3
+t14=t13 + 1
+var_b                                             [0]=t14
+prt v	
+prt a	
+prt l	
+prt u	
+prt e	
+prt  	
+prt o	
+prt f	
+prt  	
+prt v	
+prt a	
+prt r	
+prt b	
+prt [	
+prt 0	
+prt ]	
+prt :	
+prt  	
+t15=var_b                                             [0]
+prt t15
+var_foo                                            == 67
+BZ nextcase17
+prt v	
+prt a	
+prt l	
+prt u	
+prt e	
+prt  	
+prt o	
+prt f	
+prt  	
+prt c	
+prt h	
+prt a	
+prt r	
+prt  	
+prt v	
+prt a	
+prt r	
+prt _	
+prt f	
+prt o	
+prt o	
+prt  	
+prt i	
+prt s	
+prt var_foo                                           
+GOTO END16
+nextcase17:
+END16:
+n                                                  != 0
+BZ label18
+prt i	
+prt n	
+prt i	
+prt t	
+prt  	
+prt v	
+prt a	
+prt l	
+prt u	
+prt e	
+prt  	
+prt o	
+prt f	
+prt  	
+prt n	
+prt  	
+prt i	
+prt s	
+prt  	
+prt n                                                 
+label18:
+call print_start                                       
+label19:
+scf n                                                 
+t20=0 - n                                                 
+t20 >= 0
+BNZ label19
+prt p	
+prt l	
+prt e	
+prt a	
+prt s	
+prt e	
+prt  	
+prt i	
+prt n	
+prt p	
+prt u	
+prt t	
+prt  	
+prt t	
+prt w	
+prt o	
+prt  	
+prt r	
+prt a	
+prt n	
+prt d	
+prt o	
+prt m	
+prt  	
+prt n	
+prt u	
+prt m	
+prt b	
+prt e	
+prt r	
+prt ,	
+prt  	
+prt t	
+prt h	
+prt e	
+prt y	
+prt  	
+prt w	
+prt i	
+prt l	
+prt l	
+prt  	
+prt b	
+prt e	
+prt  	
+prt o	
+prt m	
+prt i	
+prt t	
+prt e	
+prt d	
+scf aa                                                
+scf aa                                                
+label21:
+t23=0 - n                                                 
+t24=0 - 13
+t23 <= t24
+BZ label22
+t25=n                                                  - 13
+n                                                  = t25
+label22:
+n                                                  > 12
+BNZ label21
+push n                                                 
+call getresult                                         
+push n                                                 
+call count                                             
+length                                             = ret
+length                                             == 1
+BZ nextcase27
+prt 1	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt :	
+prt result                                            
+GOTO END26
+nextcase27:
+length                                             == 2
+BZ nextcase28
+prt 2	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase28:
+length                                             == 3
+BZ nextcase29
+prt 3	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase29:
+length                                             == 4
+BZ nextcase30
+prt 4	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase30:
+length                                             == 5
+BZ nextcase31
+prt 5	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase31:
+length                                             == 6
+BZ nextcase32
+prt 6	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase32:
+length                                             == 7
+BZ nextcase33
+prt 7	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase33:
+length                                             == 8
+BZ nextcase34
+prt 8	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase34:
+length                                             == 9
+BZ nextcase35
+prt 9	
+prt  	
+prt d	
+prt i	
+prt g	
+prt i	
+prt t	
+prt s	
+prt :	
+prt result                                            
+GOTO END26
+nextcase35:
+END26:
+call test_empty                                        
+ret

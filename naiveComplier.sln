@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "naiveComplier", "naiveComplier\naiveComplier.vcxproj", "{22267408-7D0E-4F4F-8573-0DFA29162DEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5D8B4EA-4813-4EBC-AF87-2040128854B2}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		naiveComplier.vsmdi = naiveComplier.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = naiveComplier.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22267408-7D0E-4F4F-8573-0DFA29162DEE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22267408-7D0E-4F4F-8573-0DFA29162DEE}.Debug|Win32.Build.0 = Debug|Win32
+		{22267408-7D0E-4F4F-8573-0DFA29162DEE}.Release|Win32.ActiveCfg = Release|Win32
+		{22267408-7D0E-4F4F-8573-0DFA29162DEE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

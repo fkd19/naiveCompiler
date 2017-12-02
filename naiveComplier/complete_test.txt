@@ -1,0 +1,14 @@
+
+int a()
+{
+    int i;
+    i=0;
+    switch(i)
+    {
+        case 0:printf("a");
+        case 1:printf("b");
+        case 0:printf("c");
+    }
+}
+
+void main(){}

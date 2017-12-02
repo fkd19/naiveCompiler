@@ -1,0 +1,110 @@
+const int con_a = 0, con_b = +1;
+const char con_c1 = '0', con_c2 = 's', con_c3 = '+', con_c4 = '*' ;
+
+int result, var_b[10 * con_b + con_a];
+char var_d[9 - con_b / 1], var_c;
+
+int factorial(int n, int no_use)
+{
+    const int max = 2147483647;
+    int ans;
+    if (n == 0)
+        return (1);
+    if (n != 0)
+    {
+        ans = n * factorial(n - 1);
+    }
+    return (ans);
+}
+
+void getResult(int n)
+{
+    const int max = 2147483647;
+    int a;
+    result = factorial(n, 0);
+}
+
+int count(int a)
+{
+    int k;
+    k = 0;
+    if (a < 0)
+        a = -a;
+    do
+    {
+        k = -(-k) + 1;
+        a = a / 10;
+    }while(a >= 10)
+
+    return (k + 1);
+}
+
+void print_start()
+{
+    printf("please input a number");
+    return ;
+}
+
+void test_empty()
+{
+    
+}
+
+int main()
+{
+    int n, length, aa, bb;
+    char var_foo;
+
+    var_foo = 'C';
+    n = -1;
+    var_b[0] = -3 + 1;
+    print("value of varb[0]: ", var_b[0]);
+    
+    switch (var_foo)
+    {
+        case 'C':
+        {
+            printf("value of char var_foo is");
+            printf(var_foo);
+        }
+    }
+
+    if (n)
+        printf("init value of n is ", n);
+
+    print_start();
+    do 
+    {
+        scanf(n);
+    }while(n >= 0)
+
+    printf("please input two random number, they will be omited");
+    scanf(aa, bb);
+
+    do
+    {
+        if (-n <= -13)
+            n = n - 13;
+    }while(n > 12)
+
+    getResult(n);
+
+        ;
+    length = count(n);
+    switch(length)
+    {
+        case 1: printf("1 digit:", result);
+        case 2: printf("2 digits:", result);
+        case 3: printf("3 digits:", result);
+        case 4: printf("4 digits:", result);
+        case 5: printf("5 digits:", result);
+        case 6: printf("6 digits:", result);
+        case 7: printf("7 digits:", result);
+        case 8: printf("8 digits:", result);
+        case 9: printf("9 digits:", result);
+    }
+
+    test_empty();
+
+    return 0;
+}
