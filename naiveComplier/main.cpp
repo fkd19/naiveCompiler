@@ -23,13 +23,17 @@ int main(int args, char* argv[])//main
     compiler.program();//处理 “程序”
     if (!compiler.errors.empty())
     {
-        compiler.errormsg();
+        //compiler.errormsg();
+        printf("出现错误，具体错误信息请查看result.txt\n");
         compiler.fin.close();
         compiler.fout.close();
         return 0;
     }
-    
-    //compiler.midcode2mips();
+
+    printf("中间代码生成完毕，生成的中间代码保存在midecode.txt中\n");
+    compiler.midcode2mips();
+    printf("mips汇编代码生成完毕，生成的mips代码保存在mips.asm中\n");
+    printf("编译完成！\n");
 
     compiler.fin.close();
     compiler.fout.close();

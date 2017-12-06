@@ -30,6 +30,10 @@ int count(int a)
     k = 0;
     if (a < 0)
         a = -a;
+
+    if (a < 10)
+        return (1);
+
     do
     {
         k = -(-k) + 1;
@@ -41,7 +45,7 @@ int count(int a)
 
 void print_start()
 {
-    printf("please input a number");
+    printf(" please input a number ");
     return ;
 }
 
@@ -58,19 +62,19 @@ void main()
     var_foo = 'C';
     n = -1;
     var_b[0] = -3 + 1;
-    printf("value of varb[0]: ", var_b[0]);
+    printf(" value of varb[0]: ", var_b[0]);
     
     switch (var_foo)
     {
         case 'C':
         {
-            printf("value of char var_foo is");
+            printf(" value of char var_foo is ");
             printf(var_foo);
         }
     }
 
     if (n)
-        printf("init value of n is ", n);
+        printf(" init value of n is ", n);
 
     print_start();
     do 
@@ -78,7 +82,7 @@ void main()
         scanf(n);
     }while(-n >= 0)
 
-    printf("please input two random number, they will be omited");
+    printf(" please input two random number, they will be omited ");
     scanf(aa, bb);
 
     do
@@ -90,18 +94,19 @@ void main()
     getResult(n);
 
         ;
-    length = count(n);
+    length = count(result);
+    printf(" result is ");
     switch(length)
     {
-        case 1: printf("1 digit:", result);
-        case 2: printf("2 digits:", result);
-        case 3: printf("3 digits:", result);
-        case 4: printf("4 digits:", result);
-        case 5: printf("5 digits:", result);
-        case 6: printf("6 digits:", result);
-        case 7: printf("7 digits:", result);
-        case 8: printf("8 digits:", result);
-        case 9: printf("9 digits:", result);
+        case 1: printf(" 1 digit: ", result);
+        case 2: printf(" 2 digits: ", result);
+        case 3: printf(" 3 digits: ", result);
+        case 4: printf(" 4 digits: ", result);
+        case 5: printf(" 5 digits: ", result);
+        case 6: printf(" 6 digits: ", result);
+        case 7: printf(" 7 digits: ", result);
+        case 8: printf(" 8 digits: ", result);
+        case 9: printf(" 9 digits: ", result);
     }
 
     test_empty();

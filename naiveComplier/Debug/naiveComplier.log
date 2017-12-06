@@ -1,85 +1,17 @@
-﻿生成启动时间为 2017/12/2 15:16:05。
-     1>项目“C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\naiveComplier\naiveComplier.vcxproj”在节点 2 上(rebuild 个目标)。
-     1>_PrepareForClean:
-         正在删除文件“Debug\naiveComplier.lastbuildstate”。
-       InitializeBuildStatus:
+﻿生成启动时间为 12/6/2017 4:55:50 PM。
+     1>项目“C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\naiveComplier\naiveComplier.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
          正在创建“Debug\naiveComplier.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt array_tab_entry.cpp func_tab_entry.cpp main.cpp mips_code.cpp NaiveCompiler.cpp one_mid_code.cpp symbol_record.cpp tab_entry.cpp
-         tab_entry.cpp
-         symbol_record.cpp
-         one_mid_code.cpp
-         NaiveCompiler.cpp
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2711): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2712): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2713): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2714): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2726): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2727): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2728): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _itoa. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdlib.h(867) : 参见“itoa”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2729): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2741): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2742): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2743): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2755): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2756): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2757): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2769): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2770): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2771): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2772): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2784): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2785): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2786): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _itoa. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdlib.h(867) : 参见“itoa”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2787): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\naivecompiler.cpp(2799): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-         mips_code.cpp
-         main.cpp
-     1>c:\users\15061188\documents\visual studio 2010\projects\naivecomplier\naivecomplier\main.cpp(18): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : 参见“scanf”的声明
-         func_tab_entry.cpp
-         array_tab_entry.cpp
-         正在生成代码...
+         所有输出均为最新。
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\Debug\naiveComplier.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\naiveComplier.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\Debug\naiveComplier.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\Debug\naiveComplier.lib" /MACHINE:X86 Debug\array_tab_entry.obj
-         Debug\func_tab_entry.obj
-         Debug\main.obj
-         Debug\mips_code.obj
-         Debug\NaiveCompiler.obj
-         Debug\one_mid_code.obj
-         Debug\symbol_record.obj
-         Debug\tab_entry.obj
-         naiveComplier.vcxproj -> C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\Debug\naiveComplier.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\Debug\naiveComplier.exe.manifest" /manifest Debug\naiveComplier.exe.intermediate.manifest
+         所有输出均为最新。
+         naiveComplier.vcxproj -> C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.exe
        FinalizeBuildStatus:
          正在删除文件“Debug\naiveComplier.unsuccessfulbuild”。
          正在对“Debug\naiveComplier.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveComplier\naiveComplier\naiveComplier.vcxproj”(rebuild 个目标)的操作。
+     1>已完成生成项目“C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\naiveComplier\naiveComplier.vcxproj”(build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:16.18
+已用时间 00:00:00.09

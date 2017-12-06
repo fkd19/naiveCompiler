@@ -48,6 +48,10 @@ public:
 
     char string_global[ALNG];
     char string_main[ALNG];
+    char reg_sp[ALNG];//运算栈
+    char reg_fp[ALNG];//运行栈
+    char reg_gp[ALNG];//参数栈
+    char reg_t9[ALNG];//全局变量区首地址
     int mid_counter;
     one_mid_code midcode[MID_CODE_SIZE];
     int f;
@@ -56,6 +60,7 @@ public:
     int mips_counter;
 
     list<pair<int, string>> errors;
+    list<pair<char* , int>> data_stack;//索引为辅助变量名，值为变量的地址
 
     set<symbol> f_assign;
     set<symbol> f_call_return_func;
@@ -118,22 +123,44 @@ public:
     void void_main();//处理“主函数”
 
     void error(string content);//ln：错误所在行号      content：错误内容
-    void errormsg();//集中打印错误信息
+    //void errormsg();//集中打印错误信息
     void fatal(string content);//严重错误，进入后直接退出
     //根据标识符名称查找，返回标识符索引
     int getIndexByNameAndParent(char (&parent)[ALNG], char (&name)[ALNG], operate_table_mode mode);
+    int getAddrByName(char* name);
     void skip(set<symbol> begin_symbol_set);
     void append_midcode(char* op, char* rd = nullptr, char* rs = nullptr, char* rt = nullptr);//添加中间代码
-    void allocHelpVar(char* ans);//分配一个空闲的变量名，用于四元式的生成
+    void allocHelpVar(char (&ans)[ALNG]);//分配一个空闲的变量名，用于四元式的生成
 
     void midcode2mips();
+    void loadValue2reg(char (&parent)[ALNG], char (&name)[ALNG], char* tar_reg);
+    void saveValue2mem(char (&parent)[ALNG], char (&name)[ALNG], char* src_reg);
 
     void add(char* rd, char* rs, char* rt);
-    void addi(char* rd, char* rs, int imm);
+    void addi(char* rt, char* rs, int imm);
+    void _and(char* rd, char* rs, char* rt);
+    void andi(char* rt, char* rs, int imm);
+    void _beq(char* rs, char* rt, char* label);
+    void _bge(char* rs, char* rt, char* label);
+    void _bgt(char* rs, char* rt, char* label);
+    void _ble(char* rs, char* rt, char* label);
+    void _blt(char* rs, char* rt, char* label);
+    void _bne(char* rs, char* rt, char* label);
     void div(char* rs, char* rt);
+    void generate_label(char* label);
+    void _j(char* target);
+    void jal(char* target);
+    void jr(int target_register);
+    void lui(char* rt, int imm);
+    void lw(char* rt, char* rs, int imm);
+    void mflo(char* rd);
     void mult(char* rs, char* rt);
+    void _or(char* rd, char* rs, char* rt);
+    void ori(char* rt, char* rs, int imm);
+    void _nor(char* rd, char* rs, char* rt);
+    void slt(char* rd, char* rs, char* rt);
     void sub(char* rd, char* rs, char* rt);
-    void subi(char* rd, char* rs, int imm);
+    void subi(char* rt, char* rs, int imm);
+    void sw(char* rt, char* rs, int imm);
     void syscall();
-    
 };
