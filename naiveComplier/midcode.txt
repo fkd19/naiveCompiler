@@ -1,418 +1,969 @@
-const int con_a = 0
-const int con_b = 1
-const char con_c1 = 48
-const char con_c2 = 115
-const char con_c3 = 43
-const char con_c4 = 42
-var int result
-var int var_b[10]
-var char var_d[9]
-var char var_c
-int factorial()
-para int n
-para int no_use
-const int max = 2147483647
-var int ans
-n == 0
-BZ fangkd_ifend0
-ret 1
-fangkd_ifend0:
-n != 0
-BZ fangkd_ifend1
+const int cst1 = 1
+const int cst2 = 2
+const int cst3 = 3
+const char csta = 97
+const char cstb = 98
+const char cstc = 99
+var int g_a
+var int g_b
+var int g_arr[2048]
+var char g_stra[1024]
+var char g_strb[2048]
+void const_define()
+const int a = 1
+const int b = 0
+const int c = -1
+const char cst23 = 120
+const char cst24 = 121
+const char cst25 = 122
+const char csta0 = 65
+const char csta1 = 66
+const char csta2 = 67
+const char numcst0 = 48
+const char numcst1 = 49
+const char numcst2 = 50
+const char numcst3 = 51
+const char numcst4 = 52
+const char numcst5 = 53
+const char numcst6 = 54
+const char numcst7 = 55
+const char numcst8 = 56
+const char numcst9 = 57
+const char cst_plus = 43
+const char cst_mninus = 45
+const char cst_mul = 42
+const char cst_div = 47
+prt a
+prt b
+prt c
+prt numcst0
+prt numcst1
+prt numcst2
+prt numcst3
+prt numcst4
+prt numcst5
+prt numcst6
+prt numcst7
+prt numcst8
+prt numcst9
+prt cst23
+prt cst24
+prt cst25
+prt csta0
+prt csta1
+prt csta2
+prt cst_plus
+prt cst_minus
+prt cst_mul
+prt cst_div
+ret
+void const_define_test()
 aar:
-fangkedongt2=n - 1
-push 0
-push fangkedongt2
-call factorial
-fangkedongt3=n * ret
-ans = fangkedongt3
-fangkd_ifend1:
-ret ans
-void getresult()
-para int n
-const int max = 2147483647
+call const_define
+ret
+void var_define()
 var int a
-aar:
-push 0
-push n
-call factorial
-result = ret
+var int arr[1]
+var int _a
+var int _arr[2]
+var int a1
+var int arr1[3]
+var int _ab_2
+var int _arrb_2[4]
+var char b
+var char strb[1]
+var char _b
+var char _bstr[2]
+var char _b_
+var char _bstr_[3]
+var char b2_
+var char bstr2_[4]
+var int c
+var int d
+var int e
+var int f[1000]
+var int g
+var char z
+var char y
+var char ____
+var char _______[100000]
 ret
-int count()
-para int a
-var int k
-k = 0
-a < 0
-BZ fangkd_ifend4
-fangkedongt5=0 - a
+void var_define_test()
+aar:
+call var_define
+ret
+void define()
+const int a1 = 1
+const int b1 = 0
+const int c1 = -1
+const char cst0 = 97
+const char cst1 = 98
+const char cst2 = 99
+const char cst_plus = 43
+const char cst_mninus = 45
+const char cst_mul = 42
+const char cst_div = 47
+var int a
+var int arr[1]
+var int _a
+var int _arr[2]
+var int arr1[3]
+var int _ab_2
+var int _arrb_2[4]
+var char b
+var char strb[1]
+var char _b
+var char _bstr[2]
+var char _b_
+var char _bstr_[3]
+var char b2_
+var char bstr2_[4]
+var int c
+var int d
+var int e
+var int f[1000]
+var int g
+var char z
+var char y
+var char ____
+var char _______[1000]
+ret
+void define_test()
+aar:
+call var_define_test
+aar:
+call const_define_test
+aar:
+call define
+ret
+void operator()
+var int a
+var int b
+var int c
+var int d
+var int e
+var int f
+a = 1
+b = 2
+c = 3
+d = 4
+e = 5
+f = 6
+fangkedongt0=b * 3
+fangkedongt1=fangkedongt0 + c
+fangkedongt2=d / 4
+fangkedongt3=fangkedongt1 - fangkedongt2
+fangkedongt4=e * f
+fangkedongt5=fangkedongt3 + fangkedongt4
 a = fangkedongt5
-fangkd_ifend4:
-a < 10
-BZ fangkd_ifend6
-ret 1
-fangkd_ifend6:
-fkd_dobegin7:
-fangkedongt8=0 - k
-fangkedongt9=0 - fangkedongt8
-fangkedongt10=fangkedongt9 + 1
-k = fangkedongt10
-fangkedongt11=a / 10
-a = fangkedongt11
-a >= 10
-BNZ fkd_dobegin7
-fangkedongt12=k + 1
-ret fangkedongt12
-void print_start()
-prt 32
-prt 112
-prt 108
-prt 101
-prt 97
-prt 115
-prt 101
-prt 32
-prt 105
-prt 110
-prt 112
-prt 117
-prt 116
-prt 32
-prt 97
-prt 32
-prt 110
-prt 117
-prt 109
-prt 98
-prt 101
-prt 114
-prt 32
+fangkedongt6=a * 3
+fangkedongt7=a + fangkedongt6
+fangkedongt8=fangkedongt7 + c
+fangkedongt9=d / 4
+fangkedongt10=fangkedongt8 - fangkedongt9
+fangkedongt11=e * f
+fangkedongt12=fangkedongt10 + fangkedongt11
+b = fangkedongt12
+fangkedongt13=b * 0
+fangkedongt14=a + fangkedongt13
+fangkedongt15=1 - 0
+fangkedongt16=fangkedongt14 - fangkedongt15
+e = fangkedongt16
 ret
-void test_empty()
-ret
-void main()
-var int n
-var int length
-var int aa
-var int bb
-var char var_foo
-var_foo = 67
-fangkedongt13=0 - 1
-n = fangkedongt13
-fangkedongt14=0 - 3
-fangkedongt15=fangkedongt14 + 1
-var_b[0]=fangkedongt15
-prt 32
-prt 118
-prt 97
-prt 108
-prt 117
-prt 101
-prt 32
-prt 111
-prt 102
-prt 32
-prt 118
-prt 97
-prt 114
-prt 98
-prt 91
-prt 48
-prt 93
-prt 58
-prt 32
-fangkedongt16=var_b[0]
-prt fangkedongt16
-var_foo == 67
-BZ fkd_nextcase18
-prt 32
-prt 118
-prt 97
-prt 108
-prt 117
-prt 101
-prt 32
-prt 111
-prt 102
-prt 32
-prt 99
-prt 104
-prt 97
-prt 114
-prt 32
-prt 118
-prt 97
-prt 114
-prt 95
-prt 102
-prt 111
-prt 111
-prt 32
-prt 105
-prt 115
-prt 32
-prt var_foo
-GOTO fkd_switchend17
-fkd_nextcase18:
-fkd_switchend17:
-n != 0
-BZ fangkd_ifend19
-prt 32
-prt 105
-prt 110
-prt 105
-prt 116
-prt 32
-prt 118
-prt 97
-prt 108
-prt 117
-prt 101
-prt 32
-prt 111
-prt 102
-prt 32
-prt 110
-prt 32
-prt 105
-prt 115
-prt 32
-prt n
-fangkd_ifend19:
+void operator_test()
 aar:
-call print_start
-fkd_dobegin20:
-scf n
-fangkedongt21=0 - n
-fangkedongt21 >= 0
-BNZ fkd_dobegin20
+call operator
+ret
+void dowhile()
+var int i
+i = 100
+fkd_dobegin17:
+fangkedongt18=i - 1
+i = fangkedongt18
+prt 97
+prt 116
 prt 32
-prt 112
 prt 108
 prt 101
 prt 97
 prt 115
-prt 101
+prt 116
 prt 32
-prt 105
-prt 110
-prt 112
+prt 101
+prt 120
+prt 99
 prt 117
 prt 116
+prt 101
 prt 32
-prt 116
-prt 119
 prt 111
-prt 32
-prt 114
-prt 97
+prt 110
+prt 99
+prt 101
+0 != 0
+BNZ fkd_dobegin17
+fkd_dobegin19:
+i >= 50
+BZ fangkd_ifend20
+fangkedongt21=i / 2
+i = fangkedongt21
+fangkd_ifend20:
+i < 50
+BZ fangkd_ifend22
+fangkedongt23=i + 10
+fangkedongt24=fangkedongt23 / 3
+i = fangkedongt24
+fangkd_ifend22:
+i >= 10
+BNZ fkd_dobegin19
+ret
+void dowhile_test()
+aar:
+call dowhile
+ret
+void ifcondition()
+var int a
+var int rightnumber
+a = 1
+rightnumber = 0
+a == 1
+BZ fangkd_ifend25
+fangkedongt26=rightnumber + 1
+rightnumber = fangkedongt26
+fangkd_ifend25:
+a = 2
+a > 1
+BZ fangkd_ifend27
+fangkedongt28=rightnumber + 1
+rightnumber = fangkedongt28
+fangkd_ifend27:
+a = 0
+a < 1
+BZ fangkd_ifend29
+fangkedongt30=rightnumber + 1
+rightnumber = fangkedongt30
+fangkd_ifend29:
+a != 1
+BZ fangkd_ifend31
+fangkedongt32=rightnumber + 1
+rightnumber = fangkedongt32
+fangkd_ifend31:
+a >= 0
+BZ fangkd_ifend33
+fangkedongt34=rightnumber + 1
+rightnumber = fangkedongt34
+fangkd_ifend33:
+a <= 0
+BZ fangkd_ifend35
+fangkedongt36=rightnumber + 1
+rightnumber = fangkedongt36
+fangkd_ifend35:
+fangkedongt38=1 + 1
+fangkedongt39=fangkedongt38 + 1
+fangkedongt40=1 * 3
+fangkedongt41=fangkedongt39 + fangkedongt40
+rightnumber != fangkedongt41
+BZ fangkd_ifend37
+prt 105
+prt 102
+prt 99
+prt 111
 prt 110
 prt 100
+prt 105
+prt 116
+prt 105
 prt 111
-prt 109
-prt 32
 prt 110
+prt 32
+prt 99
+prt 108
+prt 97
 prt 117
-prt 109
-prt 98
+prt 115
 prt 101
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 33
+fangkd_ifend37:
+rightnumber != rightnumber
+BZ fangkd_ifend42
+prt 105
+prt 102
+prt 99
+prt 111
+prt 110
+prt 100
+prt 105
+prt 116
+prt 105
+prt 111
+prt 110
+prt 32
+prt 99
+prt 108
+prt 97
+prt 117
+prt 115
+prt 101
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+fangkd_ifend42:
+ret
+int switchcodintionans()
+para int x
+x == 1
+BZ fkd_nextcase44
+ret 2
+GOTO fkd_switchend43
+fkd_nextcase44:
+x == 2
+BZ fkd_nextcase45
+ret 3
+GOTO fkd_switchend43
+fkd_nextcase45:
+x == 3
+BZ fkd_nextcase46
+ret 4
+GOTO fkd_switchend43
+fkd_nextcase46:
+fkd_switchend43:
+ret 5
+i = 1
+int switchcodintion()
+var int i
+var int rightnumber
+i = 1
+rightnumber = 0
+fkd_dobegin47:
+aar:
+push i
+call switchcodintionans
+fangkedongt49=i + 1
+ret == fangkedongt49
+BZ fangkd_ifend48
+fangkedongt50=rightnumber + 1
+rightnumber = fangkedongt50
+fangkd_ifend48:
+fangkedongt51=i + 1
+i = fangkedongt51
+i < 5
+BNZ fkd_dobegin47
+rightnumber != 4
+BZ fangkd_ifend52
+prt 115
+prt 119
+prt 105
+prt 116
+prt 99
+prt 104
+prt 99
+prt 111
+prt 100
+prt 105
+prt 110
+prt 116
+prt 105
+prt 111
+prt 110
+prt 32
+prt 99
+prt 108
+prt 97
+prt 117
+prt 115
+prt 101
+prt 32
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 33
+fangkd_ifend52:
+ret i
+void condition()
+const int intermax = 5
+var int iter
+iter = 0
+fkd_dobegin53:
+iter == 0
+BZ fkd_nextcase55
+iter != 0
+BZ fangkd_ifend56
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 32
+prt 48
+fangkd_ifend56:
+GOTO fkd_switchend54
+fkd_nextcase55:
+iter == 1
+BZ fkd_nextcase57
+iter != 1
+BZ fangkd_ifend58
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 32
+prt 49
+fangkd_ifend58:
+GOTO fkd_switchend54
+fkd_nextcase57:
+iter == 2
+BZ fkd_nextcase59
+iter != 2
+BZ fangkd_ifend60
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 32
+prt 50
+fangkd_ifend60:
+GOTO fkd_switchend54
+fkd_nextcase59:
+iter == 3
+BZ fkd_nextcase61
+iter != 3
+BZ fangkd_ifend62
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 32
+prt 51
+fangkd_ifend62:
+GOTO fkd_switchend54
+fkd_nextcase61:
+iter == 4
+BZ fkd_nextcase63
+iter != 4
+BZ fangkd_ifend64
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 32
+prt 52
+fangkd_ifend64:
+GOTO fkd_switchend54
+fkd_nextcase63:
+fkd_switchend54:
+fangkedongt65=iter + 1
+iter = fangkedongt65
+iter < intermax
+BNZ fkd_dobegin53
+ret
+void condition_test()
+aar:
+call ifcondition
+aar:
+call switchcodintion
+aar:
+call condition
+ret
+void miscellaneous()
+var int _
+var int a
+var int array[1024]
+var int i
+var int endid
+var char ch1
+var char buf[1024]
+_ = 1
+a = 2
+fkd_dobegin66:
+array[i]=i
+fangkedongt67=i + 1
+i = fangkedongt67
+i < 1024
+BNZ fkd_dobegin66
+ch1 = 97
+i = 0
+fkd_dobegin68:
+buf[i]=ch1
+fangkedongt69=ch1 + 1
+ch1 = fangkedongt69
+fangkedongt70=i + 1
+i = fangkedongt70
+ch1 < 127
+BNZ fkd_dobegin68
+endid = i
+_ = 0
+fkd_dobegin71:
+fangkedongt72=_ * 1
+fangkedongt73=fangkedongt72 + _
+fangkedongt74=fangkedongt73 - 1
+fangkedongt75=2 / 1
+fangkedongt76=fangkedongt74 + fangkedongt75
+fangkedongt77=fangkedongt76 - 1
+fangkedongt78=fangkedongt77 / 2
+fangkedongt79=buf[fangkedongt78]
+prt fangkedongt79
+fangkedongt80=_ + 1
+_ = fangkedongt80
+_ < endid
+BNZ fkd_dobegin71
+prt ch1
+ret
+void miscellaneous_test()
+aar:
+call miscellaneous
+ret
+int fibonaci()
+para int n
+n == 0
+BZ fkd_nextcase82
+ret 0
+GOTO fkd_switchend81
+fkd_nextcase82:
+n == 1
+BZ fkd_nextcase83
+ret 1
+GOTO fkd_switchend81
+fkd_nextcase83:
+n == 2
+BZ fkd_nextcase84
+ret 1
+GOTO fkd_switchend81
+fkd_nextcase84:
+fkd_switchend81:
+aar:
+fangkedongt85=n - 1
+push fangkedongt85
+call fibonaci
+aar:
+fangkedongt86=n - 2
+push fangkedongt86
+call fibonaci
+fangkedongt87=ret + ret
+ret fangkedongt87
+void fibonaci_test()
+var int n
+prt 70
+prt 105
+prt 98
+prt 111
+prt 110
+prt 97
+prt 99
+prt 105
+prt 58
+prt 32
+prt 80
+prt 108
+prt 101
+prt 97
+prt 115
+prt 101
+prt 32
+prt 105
+prt 110
+prt 112
+prt 117
+prt 116
+prt 32
+prt 97
+prt 32
+prt 117
+prt 110
+prt 115
+prt 105
+prt 103
+prt 110
+prt 101
+prt 100
+prt 32
+prt 112
+prt 111
+prt 115
+prt 105
+prt 116
+prt 105
+prt 118
+prt 101
+prt 32
+prt 105
+prt 110
+prt 116
+prt 101
+prt 103
+prt 101
+prt 114
+prt 32
+prt 63
+scf n
+fkd_dobegin88:
+n < 0
+BZ fangkd_ifend89
+prt 73
+prt 110
+prt 112
+prt 117
+prt 116
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
 prt 114
 prt 44
 prt 32
-prt 116
+prt 97
+prt 103
+prt 97
+prt 105
+prt 110
+prt 58
+scf n
+fangkd_ifend89:
+n >= 0
+BZ fangkd_ifend90
+prt 84
 prt 104
 prt 101
-prt 121
 prt 32
-prt 119
+prt 102
 prt 105
-prt 108
-prt 108
-prt 32
 prt 98
-prt 101
-prt 32
 prt 111
-prt 109
+prt 110
+prt 97
+prt 99
 prt 105
-prt 116
-prt 101
-prt 100
+prt 39
+prt 115
 prt 32
-scf aa
-scf bb
-fkd_dobegin22:
-fangkedongt24=0 - n
-fangkedongt25=0 - 13
-fangkedongt24 <= fangkedongt25
-BZ fangkd_ifend23
-fangkedongt26=n - 13
-n = fangkedongt26
-fangkd_ifend23:
-n > 12
-BNZ fkd_dobegin22
+prt 97
+prt 110
+prt 115
+prt 119
+prt 101
+prt 114
+prt 32
+prt 105
+prt 115
+prt 32
 aar:
 push n
-call getresult
+call fibonaci
+prt ret
+prt 92
+prt 110
+fangkd_ifend90:
+n < 0
+BNZ fkd_dobegin88
+ret
+int mod()
+para int n
+para int m
+fangkedongt91=n / m
+fangkedongt92=fangkedongt91 * m
+fangkedongt93=n - fangkedongt92
+ret fangkedongt93
+int gcd()
+para int n
+para int m
+var int rem
+rem = 0
+n == 0
+BZ fangkd_ifend94
+ret m
+fangkd_ifend94:
+m == 0
+BZ fangkd_ifend95
+ret n
+fangkd_ifend95:
 aar:
-push result
-call count
-length = ret
+push m
+push n
+call mod
+rem = ret
+aar:
+push rem
+push m
+call gcd
+ret ret
+void gcd_test()
+var int n
+var int m
+prt 71
+prt 67
+prt 68
+prt 58
 prt 32
-prt 114
-prt 101
-prt 115
-prt 117
+prt 80
 prt 108
+prt 101
+prt 97
+prt 115
+prt 101
+prt 32
+prt 105
+prt 110
+prt 112
+prt 117
 prt 116
+prt 32
+prt 102
+prt 105
+prt 114
+prt 115
+prt 116
+prt 32
+prt 117
+prt 110
+prt 115
+prt 105
+prt 103
+prt 110
+prt 101
+prt 100
+prt 32
+prt 112
+prt 111
+prt 115
+prt 105
+prt 116
+prt 105
+prt 118
+prt 101
+prt 32
+prt 105
+prt 110
+prt 116
+prt 101
+prt 103
+prt 101
+prt 114
+prt 32
+prt 63
+scf n
+fkd_dobegin96:
+n < 0
+BZ fangkd_ifend97
+prt 73
+prt 110
+prt 112
+prt 117
+prt 116
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 44
+prt 32
+prt 97
+prt 103
+prt 97
+prt 105
+prt 110
+prt 58
+scf n
+fangkd_ifend97:
+n < 0
+BNZ fkd_dobegin96
+prt 71
+prt 67
+prt 68
+prt 58
+prt 32
+prt 80
+prt 108
+prt 101
+prt 97
+prt 115
+prt 101
+prt 32
+prt 105
+prt 110
+prt 112
+prt 117
+prt 116
+prt 32
+prt 115
+prt 101
+prt 99
+prt 111
+prt 110
+prt 100
+prt 32
+prt 117
+prt 110
+prt 115
+prt 105
+prt 103
+prt 110
+prt 101
+prt 100
+prt 32
+prt 112
+prt 111
+prt 115
+prt 105
+prt 116
+prt 105
+prt 118
+prt 101
+prt 32
+prt 105
+prt 110
+prt 116
+prt 101
+prt 103
+prt 101
+prt 114
+prt 32
+prt 63
+scf m
+fkd_dobegin98:
+m < 0
+BZ fangkd_ifend99
+prt 73
+prt 110
+prt 112
+prt 117
+prt 116
+prt 32
+prt 101
+prt 114
+prt 114
+prt 111
+prt 114
+prt 44
+prt 32
+prt 97
+prt 103
+prt 97
+prt 105
+prt 110
+prt 58
+scf m
+fangkd_ifend99:
+m < 0
+BNZ fkd_dobegin98
+prt 84
+prt 104
+prt 101
+prt 32
+prt 103
+prt 99
+prt 100
+prt 39
+prt 115
+prt 32
+prt 97
+prt 110
+prt 115
+prt 119
+prt 101
+prt 114
 prt 32
 prt 105
 prt 115
 prt 32
-length == 1
-BZ fkd_nextcase28
-prt 32
-prt 49
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase28:
-length == 2
-BZ fkd_nextcase29
-prt 32
-prt 50
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase29:
-length == 3
-BZ fkd_nextcase30
-prt 32
-prt 51
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase30:
-length == 4
-BZ fkd_nextcase31
-prt 32
-prt 52
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase31:
-length == 5
-BZ fkd_nextcase32
-prt 32
-prt 53
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase32:
-length == 6
-BZ fkd_nextcase33
-prt 32
-prt 54
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase33:
-length == 7
-BZ fkd_nextcase34
-prt 32
-prt 55
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase34:
-length == 8
-BZ fkd_nextcase35
-prt 32
-prt 56
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase35:
-length == 9
-BZ fkd_nextcase36
-prt 32
-prt 57
-prt 32
-prt 100
-prt 105
-prt 103
-prt 105
-prt 116
-prt 115
-prt 58
-prt 32
-prt result
-GOTO fkd_switchend27
-fkd_nextcase36:
-fkd_switchend27:
 aar:
-call test_empty
-GOTO fkd_program_end
-fkd_program_end:
+push m
+push n
+call gcd
+prt ret
+prt 92
+prt 110
+ret
+int is_prime()
+para int x
+var int i
+i = 2
+x == 2
+BZ fangkd_ifend100
+ret 1
+fangkd_ifend100:
+fkd_dobegin101:
+aar:
+push i
+push x
+call mod
+ret == 0
+BZ fangkd_ifend102
+ret 0
+fangkd_ifend102:
+fangkedongt103=i + 1
+i = fangkedongt103
+fangkedongt104=i * i
+fangkedongt104 < x
+BNZ fkd_dobegin101
+ret 1
+void prime_factorization()
+para int n
+var int i
+var int first
+i = 2
+first = 0
+n == 1
+BZ fangkd_ifend105
+prt 49
+ret
+fangkd_ifend105:
+fkd_dobegin106:
+aar:
+push i
+call is_prime
+ret == 1
+BZ fangkd_ifend107
+aar:
+push i
+push n
+call mod
+ret == 0
+BZ fangkd_ifend108
+fkd_dobegin109:
+fangkedongt110=n / i
+n = fangkedongt110
+first == 0
+BZ fangkd_ifend111
+prt 42
+fangkd_ifend111:
+first = 1
+prt i
+aar:
+push i
+push n
+call mod
+ret == 0
+BNZ fkd_dobegin109
+fangkd_ifend108:
+fangkd_ifend107:
+fangkedongt112=i + 1
+i = fangkedongt112
+fangkedongt113=i * i
+fangkedongt113 < n
+BNZ fkd_dobegin106
+n != 1
+BZ fangkd_ifend114
+first == 0
+BZ fangkd_ifend115
+prt 42
+fangkd_ifend115:
+prt n
+fangkd_ifend114:
+ret

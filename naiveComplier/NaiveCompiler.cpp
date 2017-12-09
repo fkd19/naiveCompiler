@@ -287,18 +287,15 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
                 int value = (int)rt[0];
                 memset(rt, 0, sizeof(rt));
                 _itoa_s(value, rt, 10);
-                error("数组索引应为整型，须执行显式类型转换");
+                error("数组索引应为整型");
             }
+            else if (atoi(rt) >= atab[tab[index].ref].size)
+                error("索引超过数组上界");
+            else if (atoi(rt) < 0)
+                error("索引超过数组下界");
         }
         else
-        {
-            //报错
             error("‘[’ 后面不是表达式");
-            /*set<symbol> begin_symbol_set;
-            begin_symbol_set.insert(semicomma);
-            skip(begin_symbol_set);
-            return ;*/
-        }
 
         if (symbols[0].sy == rsquare)
             insymbol(symbols[0]);
@@ -322,7 +319,7 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
             int value = (int)rt[0];
             memset(rd, 0, sizeof(rd));
             _itoa_s(value, rd, 10);
-            error("赋值类型不一致，须执行显式类型转换");
+            error("赋值类型与目标类型不一致");
         }
         else if (typ == chars && valueType == ints)
         {
@@ -890,8 +887,12 @@ void NaiveCompiler::factor(char (&parent)[ALNG], char (&rd)[ALNG], types (&typ))
                     int value = (int)rt[0];
                     memset(rt, 0, sizeof(rt));
                     _itoa_s(value, rt, 10);
-                    error("数组索引应为整型，须执行显式类型转换");
+                    error("数组索引应为整型");
                 }
+                else if (atoi(rt) >= atab[tab[index].ref].size)
+                    error("索引超过数组上界");
+                else if (atoi(rt) < 0)
+                    error("索引超过数组下界");
                     
                 allocHelpVar(rd);
                 append_midcode("=[]", rd, tab[index].name, rt);
@@ -1619,13 +1620,17 @@ void NaiveCompiler::midcode2mips()
             //赋值方向：简单值->数组元素
             int index = getIndexByNameAndParent(parent, midcode[i].rs, search_mode);
             int baseAddr = tab[index].address;
-            int offset = atoi(midcode[i].rt);
-            int element_offset = baseAddr + 4 * offset;
+            addi("$t1", "$0", baseAddr);
+            loadValue2reg(parent, midcode[i].rt, "$t2");
+            //int element_offset = baseAddr + 4 * offset;
+            sll("$t2", "$t2", 2);
+            add("$t1", "$t1", "$t2");
             loadValue2reg(parent, midcode[i].rd, "$t0");
             if (strcmp(tab[index].parent, string_global) == 0)
-                sw("$t0", reg_t9, element_offset);
+                add("$t1", "$t1", reg_t9);
             else
-                sw("$t0", reg_fp, element_offset);
+                add("$t1", "$t1", reg_fp);
+            sw("$t0", "$t1", 0);
         }
         else if (strcmp(midcode[i].op, "=[]") == 0)
         {
@@ -1633,12 +1638,16 @@ void NaiveCompiler::midcode2mips()
             //赋值方向：数组元素->简单值
             int index = getIndexByNameAndParent(parent, midcode[i].rs, search_mode);
             int baseAddr = tab[index].address;
-            int offset = atoi(midcode[i].rt);
-            int element_offset = baseAddr + 4 * offset;
+            addi("$t1", "$0", baseAddr);
+            loadValue2reg(parent, midcode[i].rt, "$t2");
+            //int element_offset = baseAddr + 4 * offset;
+            sll("$t2", "$t2", 2);
+            add("$t1", "$t1", "$t2");
             if (strcmp(tab[index].parent, string_global) == 0)
-                lw("$t0", reg_t9, element_offset);
+                add("$t1", "$t1", reg_t9);
             else
-                lw("$t0", reg_fp, element_offset);
+                add("$t1", "$t1", reg_fp);
+            lw("$t0", "$t1", 0);
             saveValue2mem(parent, midcode[i].rd, "$t0");
         }
         else if (strcmp(midcode[i].op, "prt") == 0)
@@ -3250,6 +3259,20 @@ void NaiveCompiler::ori(char* rt, char* rs, int imm)
         _itoa_s(imm, mips[mips_counter].imm, 10);
         strcpy_s(mips[mips_counter].rt, rt);
         mipsfile << mips[mips_counter].op << " " << rt << " " << rs << " " << imm << endl;
+    }
+    else
+        error("mips代码数组容量不足");
+}
+void NaiveCompiler::sll(char* rd, char* rt, int imm)
+{
+    if (mips_counter < MIPS_CODE_SIZE - 1)
+    {
+        mips_counter += 1;
+        strcpy_s(mips[mips_counter].op, "sll");
+        strcpy_s(mips[mips_counter].rd, rd);
+        _itoa_s(imm, mips[mips_counter].imm, 10);
+        strcpy_s(mips[mips_counter].rt, rt);
+        mipsfile << mips[mips_counter].op << " " << rd << " " << rt << " " << imm << endl;
     }
     else
         error("mips代码数组容量不足");

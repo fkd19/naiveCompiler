@@ -158,6 +158,7 @@ public:
     void _or(char* rd, char* rs, char* rt);
     void ori(char* rt, char* rs, int imm);
     void _nor(char* rd, char* rs, char* rt);
+    void sll(char* rd, char* rt, int imm);
     void slt(char* rd, char* rs, char* rt);
     void sub(char* rd, char* rs, char* rt);
     void subi(char* rt, char* rs, int imm);

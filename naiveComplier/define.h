@@ -1,7 +1,7 @@
 #pragma once
 #define NKW 13//keyword数量
 #define ALNG    21//identfier的有效字符数量
-#define LLNG    300//输入行的长度
+#define LLNG    320//输入行的长度
 #define LMAX    7//level max 最大层数
 #define TABLE_SIZE  300//符号表大小，可容纳的符号数量
 #define ARRAY_TABLE_SIZE    100//数组表大小，可容纳多少数组
