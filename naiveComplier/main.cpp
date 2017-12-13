@@ -2,14 +2,6 @@
 
 using namespace std;
 
-/*
-int main()
-{
-
-    return 0;
-}*/
-
-
 int main(int args, char* argv[])//main
 {
     NaiveCompiler compiler;
@@ -17,6 +9,12 @@ int main(int args, char* argv[])//main
     printf("请输入需要编译的文件名：\n");
     scanf("%s", &sourcefile);
     compiler.fin.open(sourcefile, ios_base::in);
+    if (!compiler.fin)
+    {
+        printf("需要编译的文件不存在\n");
+        exit(0);
+        return 0;
+    }
     compiler.fout.open("result.txt", ios_base::out);
     //进入所有非终结符处理程序之前都要先读好一个symbol
     compiler.insymbol(compiler.symbols[0]);//预先读一个符号
@@ -27,6 +25,7 @@ int main(int args, char* argv[])//main
         printf("出现错误，具体错误信息请查看result.txt\n");
         compiler.fin.close();
         compiler.fout.close();
+        exit(0);
         return 0;
     }
 

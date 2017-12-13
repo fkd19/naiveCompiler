@@ -1,0 +1,116 @@
+const int maxsize = 100;
+const int MAXNUM = 100000,MINNUM = -100000;
+int array[100];
+int O_left, O_right,O_sum;
+char name[24];
+void find_max_subarray(int left_index, int right_index)
+{
+    int left_sum,right_sum,sum,mid,i;
+    mid = (left_index + right_index) / 2;
+    left_sum = MINNUM;
+    sum = 0;
+    i = mid;
+    do {
+        sum = sum + array[i];
+        if (sum > left_sum)
+        {
+            left_sum = sum;
+            O_left = i;
+        }
+        i = i - 1;
+    } while (i >= left_index)
+    right_sum = MINNUM;
+    sum = 0;
+    i = mid+1;
+    do {
+        sum = sum + array[i];
+        if (sum > right_sum)
+        {
+            right_sum = sum;
+            O_right = i;
+        }
+        i = i + 1;
+    } while (i <=right_index)
+    O_sum = left_sum + right_sum;
+    return;
+}
+int find_maximum_subarray(int left_index, int right_index)
+{
+    int mid,sum;
+    int ll, lr, rl, rr, crossingl, crossingr,lsum, rsum, crossingsum;
+    char tag;
+    if (left_index == right_index)
+    {
+        O_left = left_index;
+        O_right = right_index;
+        return (array[left_index]);
+    }
+    mid = (left_index + right_index) / 2;
+    lsum=find_maximum_subarray(left_index, mid);
+    ll = O_left;
+    lr = O_right;
+    rsum=find_maximum_subarray(mid + 1, right_index);
+    rl = O_left;
+    rr = O_right;
+    find_max_subarray(left_index, right_index);
+    crossingsum = O_sum;
+    crossingl = O_left;
+    crossingr = O_right;
+
+    tag = 'l';
+    sum = lsum;
+    if (rsum > sum)
+    {
+        sum = rsum;
+        tag = 'r';
+    }
+    if (crossingsum > sum)
+    {
+        sum = crossingsum;
+        tag = 'm';
+    }
+    switch (tag)
+    {
+    case 'l': {
+        O_left = ll;
+        O_right = lr;
+        return (sum);
+    }
+    case 'm': {
+        O_left = crossingl;
+        O_right = crossingr;
+        return (sum);
+    }
+    case 'r': {
+        O_left = rl;
+        O_right = rr;
+        return (sum);
+    }
+    }
+}
+void main()
+{
+    int arraysize,i;
+    int subarraysum_max;
+    int temp;
+    printf("Maximum Subarray Problem");
+    printf("Please input array size:");
+    scanf(arraysize);
+    if (arraysize > maxsize)
+    {
+        printf("arraysize too big");
+        return;
+    }
+    i = 0;
+    do {
+        scanf(temp);
+        array[i]=temp;
+        i = i + 1;
+    } while (i<arraysize)
+    subarraysum_max=find_maximum_subarray(0, arraysize - 1);
+    printf("Maximum Subarray:");
+    printf("left_index=", O_left);
+    printf("right_index=", O_right);
+    printf("Subarray sum=", subarraysum_max);
+    return;
+}

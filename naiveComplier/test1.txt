@@ -1,0 +1,55 @@
+ const char char_a = '_', char_b = 'a';
+const int int_a = 23425, int_b = -32;
+
+void check_const_void()
+{
+    printf(" void function follows const declare test pass! ");
+}
+
+void main()
+{
+    int a[100];
+    char b[127];
+    int i;
+    char j;
+    i = 0;
+    do
+    {
+        a[i]=i;
+        i=i+1;
+    }while(i<100)
+
+
+    do
+    {
+        i = i-1;
+        printf(" ", a[i]);
+    }
+    while(i>0)
+
+    j='a';
+    do
+    {
+        b[j]=j;
+        j = j + 1;
+    }while(j <= 'z')
+
+    do
+    {
+        j = j - 1;
+        printf(" ", b[j]);
+    }while(j > 'a')
+
+    j='A';
+    do
+    {
+        b[j]=j;
+        j = j + 1;
+    }while(j <= 'Z')
+
+    do
+    {
+        j = j - 1;
+        printf(" ", b[j]);
+    }while(j > 'A')
+}

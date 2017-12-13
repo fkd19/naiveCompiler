@@ -19,15 +19,10 @@ NaiveCompiler::NaiveCompiler()
     programma_info.open("programma_analysis.txt", ios_base::out);
     mipsfile.open("mips.asm", ios_base::out);
 
-    f = -1;
-
-    strcpy_s(string_global, "global");
     strcpy_s(string_main, "main");
-    strcpy_s(reg_sp, "$sp");
-    strcpy_s(reg_fp, "$fp");
-    strcpy_s(reg_gp, "$gp");
-    strcpy_s(reg_t9, "$t9");
+    strcpy_s(string_global, "global");
 
+    f = -1;
     strcpy_s(key[0], "case");
     strcpy_s(key[1], "char");
     strcpy_s(key[2], "const");
@@ -173,13 +168,13 @@ void NaiveCompiler::append_midcode(char* op, char* rd, char* rs, char* rt)
     else
         fatal("中间代码表容量不足");
 
-    if (strcmp(op, "func_def") == 0)
+    if (strcmp(op, str_func_def) == 0)
         midcodefile << rs << " " << rt << "()" << endl;
-    else if (strcmp(op, "para") == 0)
+    else if (strcmp(op, str_para) == 0)
         midcodefile << op << " " << rs << " " << rt << endl;
-    else if (strcmp(op, "push") == 0)
+    else if (strcmp(op, str_push) == 0)
         midcodefile << op << " " << rs << endl;
-    else if (strcmp(op, "call") == 0)
+    else if (strcmp(op, str_call) == 0)
         midcodefile << op << " " << rs << endl;
     else if (strcmp(op, "=") == 0)
         midcodefile << rd << " " << op << " " << rs << endl;
@@ -190,11 +185,11 @@ void NaiveCompiler::append_midcode(char* op, char* rd, char* rs, char* rt)
          ||  strcmp(op, ">") == 0 || strcmp(op, ">=") == 0
          ||  strcmp(op, "<") == 0 || strcmp(op, "<=") == 0)
         midcodefile << rs << " " << op << " " << rt << endl;
-    else if (strcmp(op, "BNZ") == 0)
+    else if (strcmp(op, str_BNZ) == 0)
         midcodefile << "BNZ " << rd << endl;
-    else if (strcmp(op, "BZ") == 0)
+    else if (strcmp(op, str_BZ) == 0)
         midcodefile << "BZ " << rd << endl;
-    else if (strcmp(op, "ret") == 0)
+    else if (strcmp(op, str_ret) == 0)
     {
         if (rs == nullptr)
             midcodefile << op << endl;
@@ -202,16 +197,16 @@ void NaiveCompiler::append_midcode(char* op, char* rd, char* rs, char* rt)
             midcodefile << op << " " << rs << endl;
     }
         
-    else if (strcmp(op, "GOTO") == 0)
+    else if (strcmp(op, str_GOTO) == 0)
         midcodefile << "GOTO " << rs << endl;
     else if (strcmp(op, "=[]") == 0)
         midcodefile << rd << "=" << rs << "[" << rt << "]" << endl;
     else if (strcmp(op, "[]=") == 0)
         midcodefile << rs << "[" << rt << "]=" << rd << endl;
-    else if (strcmp(op, "prt") == 0)
-        midcodefile << op << " " << rs << endl;
-    else if (strcmp(op, "scf") == 0)
-        midcodefile << op << " " << rd << endl;
+    else if (strcmp(op, str_prt) == 0)
+        midcodefile << op << " " << rs << " " << rt << endl;
+    else if (strcmp(op, str_scf) == 0)
+        midcodefile << op << " " << rd << " " << rs << endl;
     else
         midcodefile << op << ":" << endl;
 }
@@ -231,10 +226,6 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
         string msg = symbols[0].id;
         msg.append("不存在");
         error(msg);
-        /*set<symbol> begin_symbol_set;
-        begin_symbol_set.insert(semicomma);
-        skip(begin_symbol_set);
-        return ;*/
     }
 
     if (tab[index].obj != var && tab[index].obj != arr && tab[index].obj != para)
@@ -243,10 +234,6 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
         string msg = symbols[0].id;
         msg.append("的值不可修改");
         error(msg);
-        /*set<symbol> begin_symbol_set;
-        begin_symbol_set.insert(semicomma);
-        skip(begin_symbol_set);
-        return ;*/
     }
 
     strcpy_s(rs, symbols[0].id);
@@ -270,10 +257,6 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
             string msg = tab[index].name;
             msg.append("不是数组，类型不符");
             error(msg);
-            /*set<symbol> begin_symbol_set;
-            begin_symbol_set.insert(semicomma);
-            skip(begin_symbol_set);
-            return ;*/
         }
 
         typ = atab[tab[index].ref].elementType;
@@ -284,10 +267,8 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
             expression(parent, rt, indexType);
             if (indexType == chars)
             {
-                int value = (int)rt[0];
-                memset(rt, 0, sizeof(rt));
-                _itoa_s(value, rt, 10);
-                error("数组索引应为整型");
+                indexType = ints;
+                error("检测到数组索引为字符型，数组索引应为整型，已做自动转换", false);
             }
             else if (atoi(rt) >= atab[tab[index].ref].size)
                 error("索引超过数组上界");
@@ -316,25 +297,13 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
         expression(parent, rd, valueType);
         if (typ == ints && valueType == chars)
         {
-            int value = (int)rt[0];
-            memset(rd, 0, sizeof(rd));
-            _itoa_s(value, rd, 10);
-            error("赋值类型与目标类型不一致");
+            error("赋值语句中将字符型赋给整型，已执行类型转换", false);
+            valueType = ints;
         }
         else if (typ == chars && valueType == ints)
         {
-            error("将整型赋给字符型，有越界的风险");
-            /*int value = atoi(rd);
-            if (value == '+' || value == '-' || value == '*' || value == '/'
-             || isdigit(value || islower(value) || isupper(value) || value == '_')
-            {
-                memset(rd, 0, sizeof(rd));
-                rd[0] = value;
-                rd[1] = 9;
-                rd[2] = '\0';
-            }
-            else
-                error("值越界，无法将");*/
+            error("赋值语句中将整型赋给字符型，已执行类型转换", false);
+            valueType = chars;
         }
 
         if (tab[index].obj == arr)
@@ -348,14 +317,7 @@ void NaiveCompiler::assign_statement(char (&parent)[ALNG])
         }
     }
     else
-    {
-        //报错
         error("等号右侧不是表达式");
-        /*set<symbol> begin_symbol_set;
-        begin_symbol_set.insert(semicomma);
-        skip(begin_symbol_set);
-        return ;*/
-    }
     programma_info << "这是一个“赋值语句”" << endl;
 
 }
@@ -390,6 +352,7 @@ void NaiveCompiler::call_return_func(char (&parent)[ALNG], char (&rd)[ALNG], typ
         msg.append("无返回值");
         error(msg);
     }
+    typ = tab[index].typ;
 
     if (end == 1)
     {
@@ -407,8 +370,6 @@ void NaiveCompiler::call_return_func(char (&parent)[ALNG], char (&rd)[ALNG], typ
             error("缺少 (");
     }
 
-    append_midcode("aar");
-
     value_parameter_list(parent, tab[index].name);//可能为空，故不必验证开始符号集
 
     if (symbols[0].sy == rparent)
@@ -416,8 +377,8 @@ void NaiveCompiler::call_return_func(char (&parent)[ALNG], char (&rd)[ALNG], typ
     else
         error("缺少 )");
 
-    append_midcode("call", nullptr, tab[index].name);
-    strcpy_s(rd, "ret");
+    append_midcode(str_call, nullptr, tab[index].name);
+    strcpy_s(rd, str_ret);
     programma_info << "这是一个“有返回值函数调用语句”" << endl;
 }
 void NaiveCompiler::call_void_func(char (&parent)[ALNG])
@@ -434,8 +395,6 @@ void NaiveCompiler::call_void_func(char (&parent)[ALNG])
     end = 0;
     insymbol(symbols[0]);
 
-    append_midcode("aar");
-
     value_parameter_list(parent, tab[index].name);//可能为空，故不必验证开始符号集
 
     if (symbols[0].sy == rparent)
@@ -443,10 +402,10 @@ void NaiveCompiler::call_void_func(char (&parent)[ALNG])
     else
         error("缺少 )");
 
-    append_midcode("call", nullptr, tab[index].name);
+    append_midcode(str_call, nullptr, tab[index].name);
     programma_info << "这是一个“无返回值函数调用语句”" << endl;
 }
-void NaiveCompiler::caselist(char (&parent)[ALNG], types typ, char (&rs)[ALNG])
+void NaiveCompiler::caselist(char (&parent)[ALNG], types typ, char (&rs)[ALNG], bool &has_return)
 {
     set <int> exist_const;
     char end[ALNG];
@@ -454,10 +413,10 @@ void NaiveCompiler::caselist(char (&parent)[ALNG], types typ, char (&rs)[ALNG])
     f += 1;
     _itoa_s(f, &end[13], ALNG-14, 10);
 
-    one_case(parent, typ, end, rs, exist_const);
+    one_case(parent, typ, end, rs, exist_const, has_return);
 
     while (f_case.count(symbols[0].sy))
-        one_case(parent, typ, end, rs, exist_const);
+        one_case(parent, typ, end, rs, exist_const, has_return);
 
     append_midcode(end);
     programma_info << "这是一个“情况表”" << endl;
@@ -513,9 +472,9 @@ void NaiveCompiler::condition(char (&parent)[ALNG], char (&label)[ALNG], bool ju
             expression(parent, rt, typ);
             append_midcode(op, nullptr, rs, rt);
             if (jump)
-                append_midcode("BNZ", label);
+                append_midcode(str_BNZ, label);
             else
-                append_midcode("BZ", label);
+                append_midcode(str_BZ, label);
         }
         else
             error("关系符号右侧缺少表达式");
@@ -525,9 +484,9 @@ void NaiveCompiler::condition(char (&parent)[ALNG], char (&label)[ALNG], bool ju
     {
         append_midcode("!=", nullptr, rs, "0");
         if (jump)
-            append_midcode("BNZ", label);
+            append_midcode(str_BNZ, label);
         else
-            append_midcode("BZ", label);
+            append_midcode(str_BZ, label);
     }
     programma_info << "这是一个“条件”" << endl;
 }
@@ -572,9 +531,6 @@ void NaiveCompiler::const_declare(char (&parent)[ALNG])
         {
             //报错，缺少常量定义
             error("常量类型错误");
-            /*set<symbol> begin_symbol_set;
-            begin_symbol_set.insert(semicomma);
-            skip(begin_symbol_set);*/
         }
 
         if (symbols[0].sy == semicomma)
@@ -640,10 +596,6 @@ intsy_label_1:
                 string msg = const_name;
                 msg.append("重复声明");
                 error(msg);
-                /*set<symbol> begin_symbol_set;
-                begin_symbol_set.insert(semicomma);
-                begin_symbol_set.insert(comma);
-                skip(begin_symbol_set);*/
             }
         }
         //非法变量名则不登入符号表
@@ -708,10 +660,6 @@ charsy_label_1:
                 string msg = const_name;
                 msg.append("重复声明");
                 error(msg);
-                /*set<symbol> begin_symbol_set;
-                begin_symbol_set.insert(semicomma);
-                begin_symbol_set.insert(comma);
-                skip(begin_symbol_set);*/
             }
         }
         //非法变量名则不登入符号表
@@ -724,7 +672,7 @@ charsy_label_1:
     }
     programma_info << "这是一个“常量定义”" << endl;
 }
-void NaiveCompiler::do_while_statement(char (&parent)[ALNG])
+void NaiveCompiler::do_while_statement(char (&parent)[ALNG], bool &has_return)
 {
     
     char label[ALNG];
@@ -735,7 +683,6 @@ void NaiveCompiler::do_while_statement(char (&parent)[ALNG])
         f += 1;
         _itoa_s(f, &label[11], ALNG-12, 10);
         append_midcode(label);
-        bool has_return=false;
         statement(parent, has_return);
     }
     else
@@ -765,10 +712,11 @@ void NaiveCompiler::do_while_statement(char (&parent)[ALNG])
 
     programma_info << "这是一个“循环语句”" << endl;
 }
-void NaiveCompiler::error(string content)
+void NaiveCompiler::error(string content, bool add2set)
 {
     pair<int, string> a(ln, content);
-    errors.push_back(a);
+    if (add2set)
+        errors.push_back(a);
     fout << "第" << ln << "行：" << content << endl;
 }
 /*void NaiveCompiler::errormsg()
@@ -884,10 +832,8 @@ void NaiveCompiler::factor(char (&parent)[ALNG], char (&rd)[ALNG], types (&typ))
                 expression(parent, rt, indexType);
                 if (indexType == chars)
                 {
-                    int value = (int)rt[0];
-                    memset(rt, 0, sizeof(rt));
-                    _itoa_s(value, rt, 10);
-                    error("数组索引应为整型");
+                    indexType = ints;
+                    error("检测到数组索引为字符型，数组索引应为整型，已做自动转换", false);
                 }
                 else if (atoi(rt) >= atab[tab[index].ref].size)
                     error("索引超过数组上界");
@@ -1009,7 +955,7 @@ int NaiveCompiler::getAddrByName(char* name)
     }
     return addr;
 }
-void NaiveCompiler::if_statement(char (&parent)[ALNG])
+void NaiveCompiler::if_statement(char (&parent)[ALNG], bool &has_return)
 {
     
     char label[ALNG] = {};
@@ -1037,7 +983,6 @@ void NaiveCompiler::if_statement(char (&parent)[ALNG])
 
     if (f_statement.count(symbols[0].sy))
     {
-        bool has_return=false;
         statement(parent, has_return);
     }
     else
@@ -1378,13 +1323,11 @@ int NaiveCompiler::integer()
 }
 void NaiveCompiler::item(char (&parent)[ALNG], char (&rd)[ALNG], types (&typ))
 {
-    
     char rs[ALNG];
     char rt[ALNG];
     char op[ALNG];
     factor(parent, rs, typ);
     
-
     bool flag = false;
     while (symbols[0].sy == multsy || symbols[0].sy == divsy)
     {
@@ -1397,9 +1340,7 @@ void NaiveCompiler::item(char (&parent)[ALNG], char (&rd)[ALNG], types (&typ))
 
         insymbol(symbols[0]);
         if (f_factor.count(symbols[0].sy))
-        {
             factor(parent, rt, typ);
-        }
         else
             error("运算符后面供运算的值");
 
@@ -1416,10 +1357,10 @@ void NaiveCompiler::item(char (&parent)[ALNG], char (&rd)[ALNG], types (&typ))
 }
 void NaiveCompiler::loadValue2reg(char (&parent)[ALNG], char (&name)[ALNG], char* tar_reg)
 {
-    if (isdigit(name[0]))//标识符不可能是数字开头，所以数字开头的一定是常数
+    if (isdigit(name[0]) || (name[0] == '-' && isdigit(name[1])))//标识符不可能是数字开头，所以数字开头的一定是常数
     {
         //如果是数字
-        addi(tar_reg, "$0", atoi(name));
+        addi(tar_reg, reg_$0, atoi(name));
         return ;
     }
 
@@ -1436,14 +1377,14 @@ void NaiveCompiler::loadValue2reg(char (&parent)[ALNG], char (&name)[ALNG], char
         if (strcmp(tab[index].parent, string_global) == 0)
         {
             if (tab[index].obj == con)
-                addi(tar_reg, "$0", tab[index].value);
+                addi(tar_reg, reg_$0, tab[index].value);
             else
                 lw(tar_reg, reg_t9, tab[index].address);
         } 
         else
         {
             if (tab[index].obj == con)
-                addi(tar_reg, "$0", tab[index].value);
+                addi(tar_reg, reg_$0, tab[index].value);
             else
                 lw(tar_reg, reg_fp, tab[index].address);
         } 
@@ -1458,63 +1399,59 @@ void NaiveCompiler::midcode2mips()
     lui(reg_gp, 0x1000);//初始化参数栈首地址，向上增长
     lui(reg_fp, 0x1004);//初始化运行栈首地址，向上增长
     lui(reg_sp, 0x7fff);//初始化运算栈首地址，向下增长
-    addi(reg_sp, "$sp", 0xeffc);
+    addi(reg_sp, reg_sp, 0xeffc);
     lui(reg_t9, 0x1001);//初始化全局变量首地址
-    _j("main");
-    //addi("$t9", "$0", 0x27fc);//$t9保存参数栈指针
+    _j(string_main);
+    //addi("$t9", reg_$0, 0x27fc);//$t9保存参数栈指针
     for (int i = 0; i<mid_counter; i++)
     {
         if (strcmp(midcode[i].op, "+") == 0)
         {
             //lw lw add sw
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            add("$t2", "$t0", "$t1");
-            saveValue2mem(parent, midcode[i].rd, "$t2");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            add(reg_t2, reg_t0, reg_t1);
+            saveValue2mem(parent, midcode[i].rd, reg_t2);
         }
         else if (strcmp(midcode[i].op, "-") == 0)
         {
             //lw lw sub sw
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            sub("$t2", "$t0", "$t1");
-            saveValue2mem(parent, midcode[i].rd, "$t2");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            sub(reg_t2, reg_t0, reg_t1);
+            saveValue2mem(parent, midcode[i].rd, reg_t2);
         }
         else if (strcmp(midcode[i].op, "*") == 0)
         {
             // lw lw mult mflo
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            mult("$t0", "$t1");
-            saveValue2mem(parent, midcode[i].rd, "lo");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            mult(reg_t0, reg_t1);
+            saveValue2mem(parent, midcode[i].rd, reg_lo);
         }
         else if (strcmp(midcode[i].op, "/") == 0)
         {
             // lw lw div mflo
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            div("$t0", "$t1");
-            saveValue2mem(parent, midcode[i].rd, "lo");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            div(reg_t0, reg_t1);
+            saveValue2mem(parent, midcode[i].rd, reg_lo);
         }
-        else if (strcmp(midcode[i].op, "aar") == 0)
-        {
-            //暂不处理
-        }
-        else if (strcmp(midcode[i].op, "push") == 0)
+        else if (strcmp(midcode[i].op, str_push) == 0)
         {
             //lw sw
             //addi $sp $sp 4
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            sw("$t0", reg_gp, 0);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            sw(reg_t0, reg_gp, 0);
             addi(reg_gp, reg_gp, 4);
         }
-        else if (strcmp(midcode[i].op, "call") == 0)
+        else if (strcmp(midcode[i].op, str_call) == 0)
         {
             //jal
             int index = getIndexByNameAndParent(string_global, parent, search_mode);
-            addi("$t0", reg_fp, 0);
+            addi(reg_t0, reg_fp, 0);
             addi(reg_fp, reg_fp, tab[index].value);
-            sw("$t0", reg_fp, 0);//保存上一级fp
+            sw(reg_t0, reg_fp, 0);//保存上一级fp
             /*sw("$s0", reg_fp, 12);//保存$s0
             sw("$s1", reg_fp, 16);//保存$s1
             sw("$s2", reg_fp, 20);//保存$s2
@@ -1528,89 +1465,92 @@ void NaiveCompiler::midcode2mips()
         else if (strcmp(midcode[i].op, "=") == 0)
         {
             //lw, sw
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            saveValue2mem(parent, midcode[i].rd, "$t0");
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            saveValue2mem(parent, midcode[i].rd, reg_t0);
         }
         else if (strcmp(midcode[i].op, "==") == 0)
         {
             //lw lw beq
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t2", "$t0", "$t1");
-            slt("$t3", "$t1", "$t0");
-            _nor("$t0", "$t2", "$t3");
-            andi("$t0", "$t0", 0x1);
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            if (getIndexByNameAndParent(parent, midcode[i].rs, search_mode) == -1)
+                saveValue2mem(parent, midcode[i].rs, reg_t0);
+            slt(reg_t2, reg_t0, reg_t1);
+            slt(reg_t3, reg_t1, reg_t0);
+            _nor(reg_t0, reg_t2, reg_t3);
+            andi(reg_t0, reg_t0, 0x1);
+            
         }
         else if (strcmp(midcode[i].op, "!=") == 0)
         {
             //lw lw bne
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t2", "$t0", "$t1");
-            slt("$t3", "$t1", "$t0");
-            _or("$t0", "$t2", "$t3");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            slt(reg_t2, reg_t0, reg_t1);
+            slt(reg_t3, reg_t1, reg_t0);
+            _or(reg_t0, reg_t2, reg_t3);
         }
         else if (strcmp(midcode[i].op, ">") == 0)
         {
             //lw lw bgt
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t2", "$t0", "$t1");
-            slt("$t3", "$t1", "$t0");
-            _nor("$t4", "$t2", "$t3");
-            andi("$t4", "$t4", 0x1);
-            _nor("$t0", "$t2", "$t4");
-            andi("$t0", "$t0", 0x1);
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            slt(reg_t0, reg_t1, reg_t0);
+
         }
         else if (strcmp(midcode[i].op, ">=") == 0)
         {
             //lw lw bge
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t0", "$t1", "$t0");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            slt(reg_t2, reg_t0, reg_t1);
+            slt(reg_t3, reg_t1, reg_t0);
+            _nor(reg_t4, reg_t2, reg_t3);
+            andi(reg_t4, reg_t4, 0x1);
+            _or(reg_t0, reg_t4, reg_t3);
         }
         else if (strcmp(midcode[i].op, "<") == 0)
         {
             //lw lw blt
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t0", "$t0", "$t1");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            slt(reg_t0, reg_t0, reg_t1);
         }
         else if (strcmp(midcode[i].op, "<=") == 0)
         {
             //lw lw ble
-            loadValue2reg(parent, midcode[i].rt, "$t1");
-            loadValue2reg(parent, midcode[i].rs, "$t0");
-            slt("$t2", "$t0", "$t1");
-            slt("$t3", "$t1", "$t0");
-            _nor("$t4", "$t2", "$t3");
-            andi("$t4", "$t4", 0x1);
-            _or("$t0", "$t2", "$t4");
+            loadValue2reg(parent, midcode[i].rt, reg_t1);
+            loadValue2reg(parent, midcode[i].rs, reg_t0);
+            slt(reg_t2, reg_t0, reg_t1);
+            slt(reg_t3, reg_t1, reg_t0);
+            _nor(reg_t4, reg_t2, reg_t3);
+            andi(reg_t4, reg_t4, 0x1);
+            _or(reg_t0, reg_t2, reg_t4);
         }
-        else if (strcmp(midcode[i].op, "BNZ") == 0)
+        else if (strcmp(midcode[i].op, str_BNZ) == 0)
         {
-            _bne("$t0", "$0", midcode[i].rd);
+            _bne(reg_t0, reg_$0, midcode[i].rd);
         }
-        else if (strcmp(midcode[i].op, "BZ") == 0)
+        else if (strcmp(midcode[i].op, str_BZ) == 0)
         {
-            _beq("$t0", "$0", midcode[i].rd);
+            _beq(reg_t0, reg_$0, midcode[i].rd);
         }
-        else if (strcmp(midcode[i].op, "GOTO") == 0)
+        else if (strcmp(midcode[i].op, str_GOTO) == 0)
         {
             //j
             _j(midcode[i].rs);
         }
-        else if (strcmp(midcode[i].op, "ret") == 0)
+        else if (strcmp(midcode[i].op, str_ret) == 0)
         {
             //jr $ra
             if (midcode[i].rs[0] != '\0')
             {
-                loadValue2reg(parent, midcode[i].rs, "$v0");
-                sw("$v0", reg_sp, 0);
-                addi("$sp", reg_sp, -4);
+                loadValue2reg(parent, midcode[i].rs, reg_v0);
+                sw(reg_v0, reg_sp, 0);
+                addi(reg_sp, reg_sp, -4);
             }
             
-            lw("$31", reg_fp, 8);
+            lw(reg_ra, reg_fp, 8);
             lw(reg_fp, reg_fp, 0);
             jr(31);
         }
@@ -1618,19 +1558,19 @@ void NaiveCompiler::midcode2mips()
         {
             //查找数组首地址，根据索引计算偏移，lw sw
             //赋值方向：简单值->数组元素
+            loadValue2reg(parent, midcode[i].rd, reg_t0);
             int index = getIndexByNameAndParent(parent, midcode[i].rs, search_mode);
             int baseAddr = tab[index].address;
-            addi("$t1", "$0", baseAddr);
-            loadValue2reg(parent, midcode[i].rt, "$t2");
+            addi(reg_t1, reg_$0, baseAddr);
+            loadValue2reg(parent, midcode[i].rt, reg_t2);
             //int element_offset = baseAddr + 4 * offset;
-            sll("$t2", "$t2", 2);
-            add("$t1", "$t1", "$t2");
-            loadValue2reg(parent, midcode[i].rd, "$t0");
+            sll(reg_t2, reg_t2, 2);
+            add(reg_t1, reg_t1, reg_t2);
             if (strcmp(tab[index].parent, string_global) == 0)
-                add("$t1", "$t1", reg_t9);
+                add(reg_t1, reg_t1, reg_t9);
             else
-                add("$t1", "$t1", reg_fp);
-            sw("$t0", "$t1", 0);
+                add(reg_t1, reg_t1, reg_fp);
+            sw(reg_t0, reg_t1, 0);
         }
         else if (strcmp(midcode[i].op, "=[]") == 0)
         {
@@ -1638,59 +1578,59 @@ void NaiveCompiler::midcode2mips()
             //赋值方向：数组元素->简单值
             int index = getIndexByNameAndParent(parent, midcode[i].rs, search_mode);
             int baseAddr = tab[index].address;
-            addi("$t1", "$0", baseAddr);
-            loadValue2reg(parent, midcode[i].rt, "$t2");
+            addi(reg_t1, reg_$0, baseAddr);
+            loadValue2reg(parent, midcode[i].rt, reg_t2);
             //int element_offset = baseAddr + 4 * offset;
-            sll("$t2", "$t2", 2);
-            add("$t1", "$t1", "$t2");
+            sll(reg_t2, reg_t2, 2);
+            add(reg_t1, reg_t1, reg_t2);
             if (strcmp(tab[index].parent, string_global) == 0)
-                add("$t1", "$t1", reg_t9);
+                add(reg_t1, reg_t1, reg_t9);
             else
-                add("$t1", "$t1", reg_fp);
-            lw("$t0", "$t1", 0);
-            saveValue2mem(parent, midcode[i].rd, "$t0");
+                add(reg_t1, reg_t1, reg_fp);
+            lw(reg_t0, reg_t1, 0);
+            saveValue2mem(parent, midcode[i].rd, reg_t0);
         }
-        else if (strcmp(midcode[i].op, "prt") == 0)
+        else if (strcmp(midcode[i].op, str_prt) == 0)
         {
             //addi $v0 $0 [数字]（输出模式：字符or数字）
             //lw
             //syscall
-            if (strcmp(midcode[i].rt, "char") == 0)
-                addi("$v0", "$0", 11);
+            if (strcmp(midcode[i].rt, str_char) == 0)
+                addi(reg_v0, reg_$0, 11);
             else
-                addi("$v0", "$0", 1);
+                addi(reg_v0, reg_$0, 1);
 
-            loadValue2reg(parent, midcode[i].rs, "$a0");
+            loadValue2reg(parent, midcode[i].rs, reg_a0);
             syscall();
         }
-        else if (strcmp(midcode[i].op, "scf") == 0)//rd字段表示待赋值变量，rs字段表示读入类型
+        else if (strcmp(midcode[i].op, str_scf) == 0)//rd字段表示待赋值变量，rs字段表示读入类型
         {
             //addi $v0 $0 [数字]（输入模式：字符or数字）
             //syscall
-            if (strcmp(midcode[i].rs, "char") == 0)
-                addi("$v0", "$0", 12);
+            if (strcmp(midcode[i].rs, str_char) == 0)
+                addi(reg_v0, reg_$0, 12);
             else
-                addi("$v0", "$0", 5);
+                addi(reg_v0, reg_$0, 5);
 
             syscall();
-            saveValue2mem(parent, midcode[i].rd, "$v0");
+            saveValue2mem(parent, midcode[i].rd, reg_v0);
         }
-        else if (strcmp(midcode[i].op, "func_def") == 0)
+        else if (strcmp(midcode[i].op, str_func_def) == 0)
         {
             //label:
             memset(parent, 0, sizeof(parent));
             strcpy_s(parent, midcode[i].rt);
             generate_label(midcode[i].rt);
-            sw("$31", reg_fp, 8);//保存返回地址，main函数没关系，后申请的变量会把这覆盖掉，反正main不需要保存返回值
+            sw(reg_ra, reg_fp, 8);//保存返回地址，main函数没关系，后申请的变量会把这覆盖掉，反正main不需要保存返回值
         }
-        else if (strcmp(midcode[i].op, "para") == 0)
+        else if (strcmp(midcode[i].op, str_para) == 0)
         {
             //lw sw 
             //addi $sp $sp -4
             int index = getIndexByNameAndParent(parent, midcode[i].rt, search_mode);
-            lw("$t0", reg_gp, -4);
+            lw(reg_t0, reg_gp, -4);
             addi(reg_gp, reg_gp, -4);
-            sw("$t0", reg_fp, tab[index].address);
+            sw(reg_t0, reg_fp, tab[index].address);
         }
         else
         {
@@ -1734,7 +1674,7 @@ void NaiveCompiler::nextch()
     cc += 1;
     ch = line[cc];
 }
-void NaiveCompiler::one_case(char (&parent)[ALNG], types typ, char (&end)[ALNG], char (&rs)[ALNG], set<int> (&exist_const))
+void NaiveCompiler::one_case(char (&parent)[ALNG], types typ, char (&end)[ALNG], char (&rs)[ALNG], set<int> (&exist_const), bool &has_return)
 {
     
     char nextCase[ALNG];
@@ -1759,7 +1699,7 @@ void NaiveCompiler::one_case(char (&parent)[ALNG], types typ, char (&end)[ALNG],
         error("case后面应该接常量");
 
     append_midcode("==", nullptr, rs, rt);
-    append_midcode("BZ", nextCase);
+    append_midcode(str_BZ, nextCase);
 
     if (symbols[0].sy == colon)
         insymbol(symbols[0]);
@@ -1768,9 +1708,8 @@ void NaiveCompiler::one_case(char (&parent)[ALNG], types typ, char (&end)[ALNG],
 
     if (f_statement.count(symbols[0].sy))
     {
-        bool has_return=false;
         statement(parent, has_return);
-        append_midcode("GOTO", nullptr, end);
+        append_midcode(str_GOTO, nullptr, end);
     }
     else
         error("存在非法语句");
@@ -1825,9 +1764,9 @@ void NaiveCompiler::parameter_list(char (&parent)[ALNG])
                 tab[func_index].ref += 1;
 
             if (typ == ints)
-                append_midcode("para", nullptr, "int", para_name);
+                append_midcode(str_para, nullptr, str_int, para_name);
             else if (typ == chars)
-                append_midcode("para", nullptr, "char", para_name);
+                append_midcode(str_para, nullptr, str_char, para_name);
         }
 
         while (symbols[0].sy == comma)
@@ -1879,9 +1818,9 @@ void NaiveCompiler::parameter_list(char (&parent)[ALNG])
                             tab[func_index].ref += 1;
 
                         if (typ == ints)
-                            append_midcode("para", nullptr, "int", para_name);
+                            append_midcode(str_para, nullptr, str_int, para_name);
                         else if (typ == chars)
-                            append_midcode("para", nullptr, "char", para_name);
+                            append_midcode(str_para, nullptr, str_char, para_name);
 
                     }
                 }
@@ -1914,8 +1853,8 @@ void NaiveCompiler::printf_statement(char (&parent)[ALNG])
         for (int i = 0; i < symbols[0].sleng; i++)
         {
             _itoa_s(symbols[0].strval[i], rs, 10);
-            strcpy_s(rt, "char");
-            append_midcode("prt", nullptr, rs, rt);
+            strcpy_s(rt, str_char);
+            append_midcode(str_prt, nullptr, rs, rt);
         }
         
         //取消stab，将字符串内容保存在symbol_record对象中，需要时直接输出。
@@ -1927,10 +1866,10 @@ void NaiveCompiler::printf_statement(char (&parent)[ALNG])
             {
                 expression(parent, rs, typ);
                 if (typ == chars)
-                    strcpy_s(rt, "char");
+                    strcpy_s(rt, str_char);
                 else
-                    strcpy_s(rt, "int");
-                append_midcode("prt", nullptr, rs, "int");
+                    strcpy_s(rt, str_int);
+                append_midcode(str_prt, nullptr, rs, rt);
             }
             else
                 error("发现非法的表达式");
@@ -1946,10 +1885,10 @@ void NaiveCompiler::printf_statement(char (&parent)[ALNG])
     {
         expression(parent, rs, typ);
         if (typ == chars)
-            strcpy_s(rt, "char");
+            strcpy_s(rt, str_char);
         else
-            strcpy_s(rt, "int");
-        append_midcode("prt", nullptr, rs, rt);
+            strcpy_s(rt, str_int);
+        append_midcode(str_prt, nullptr, rs, rt);
 
         if (symbols[0].sy == rparent)
             insymbol(symbols[0]);
@@ -2096,9 +2035,9 @@ void NaiveCompiler::return_func_declare()
         tab[t].ref = 0;//初始化参数个数，读参数表时计数
 
         if (return_type == ints)
-            append_midcode("func_def", nullptr, "int", func_name);
+            append_midcode(str_func_def, nullptr, str_int, func_name);
         else if (return_type == chars)
-            append_midcode("func_def", nullptr, "char", func_name);
+            append_midcode(str_func_def, nullptr, str_char, func_name);
         
     }
 
@@ -2117,6 +2056,7 @@ void NaiveCompiler::return_func_declare()
     compound_statement(func_name, has_return);
     if (has_return == false)
         error("函数缺少返回值");
+
 
 
     if (symbols[0].sy == rbrack)
@@ -2138,7 +2078,7 @@ void NaiveCompiler::return_statement(char (&parent)[ALNG])
         if (f_expression.count(symbols[0].sy))
         {
             expression(parent, rs, typ);
-            append_midcode("ret", nullptr, rs);
+            append_midcode(str_ret, nullptr, rs);
         }
         else
             error("检测到非法的表达式");
@@ -2151,9 +2091,9 @@ void NaiveCompiler::return_statement(char (&parent)[ALNG])
     else if (symbols[0].sy == semicomma)
     {
         if (strcmp(parent, string_main) == 0)//如果是主函数，就没有上一级函数了，直接跳到程序末端
-            append_midcode("GOTO", nullptr, "fkd_program_end");
+            append_midcode(str_GOTO, nullptr, "fkd_program_end");
         else
-            append_midcode("ret");
+            append_midcode(str_ret);
     }
         
     //可能只有一个return，再读一个字符已经出返回语句的范围了，所以不用报错
@@ -2162,10 +2102,10 @@ void NaiveCompiler::return_statement(char (&parent)[ALNG])
 void NaiveCompiler::saveValue2mem(char (&parent)[ALNG], char (&name)[ALNG], char* src_reg)
 {
     char src[ALNG];
-    if (strcmp(src_reg, "lo") == 0)
+    if (strcmp(src_reg, reg_lo) == 0)
     {
-        mflo("$t0");
-        strcpy_s(src, "$t0");
+        mflo(reg_t0);
+        strcpy_s(src, reg_t0);
     }
     else
         strcpy_s(src, src_reg);
@@ -2218,9 +2158,9 @@ void NaiveCompiler::scanf_statement(char (&parent)[ALNG])
         }
 
         if (tab[index].typ == chars)
-            strcpy_s(rs, "char");
+            strcpy_s(rs, str_char);
         else if (tab[index].typ == ints)
-            strcpy_s(rs, "int");
+            strcpy_s(rs, str_int);
         else
         {
             string msg = tab[index].name;
@@ -2229,7 +2169,7 @@ void NaiveCompiler::scanf_statement(char (&parent)[ALNG])
         }
 
         strcpy_s(rd, tab[index].name);
-        append_midcode("scf", rd, rs);
+        append_midcode(str_scf, rd, rs);
 
         insymbol(symbols[0]);
         while (symbols[0].sy == comma)
@@ -2254,9 +2194,9 @@ void NaiveCompiler::scanf_statement(char (&parent)[ALNG])
                 }
 
                 if (tab[index].typ == chars)
-                    strcpy_s(rs, "char");
+                    strcpy_s(rs, str_char);
                 else if (tab[index].typ == ints)
-                    strcpy_s(rs, "int");
+                    strcpy_s(rs, str_int);
                 else
                 {
                     string msg = tab[index].name;
@@ -2265,7 +2205,7 @@ void NaiveCompiler::scanf_statement(char (&parent)[ALNG])
                 }
 
                 strcpy_s(rd, tab[index].name);
-                append_midcode("scf", rd, rs);
+                append_midcode(str_scf, rd, rs);
 
                 insymbol(symbols[0]);
             }
@@ -2297,22 +2237,21 @@ void NaiveCompiler::statement(char (&parent)[ALNG], bool &has_return)
     if (f_if.count(symbols[0].sy))
     {
         //处理条件语句
-        if_statement(parent);
+        if_statement(parent, has_return);
     }
     else if (f_do_while.count(symbols[0].sy))
     {
         //处理循环语句
-        do_while_statement(parent);
+        do_while_statement(parent, has_return);
     }
     else if (f_switch.count(symbols[0].sy))
     {
         //处理情况语句
-        switch_statement(parent);
+        switch_statement(parent, has_return);
     }
     else if (symbols[0].sy == lbrack)
     {
         insymbol(symbols[0]);
-        bool has_return=false;
         statement_column(parent, has_return);
         if (symbols[0].sy == rbrack)
         {
@@ -2429,7 +2368,7 @@ void NaiveCompiler::statement_column(char (&parent)[ALNG], bool &has_return)
 
     programma_info << "这是一个“语句列”" << endl;
 }
-void NaiveCompiler::switch_statement(char (&parent)[ALNG])
+void NaiveCompiler::switch_statement(char (&parent)[ALNG], bool &has_return)
 {
     
     types typ;
@@ -2459,7 +2398,7 @@ void NaiveCompiler::switch_statement(char (&parent)[ALNG])
 
     if (f_caselist.count(symbols[0].sy))
     {
-        caselist(parent, typ, rs);
+        caselist(parent, typ, rs, has_return);
     }
     else
         error("检测到非法的情况表");
@@ -2495,7 +2434,7 @@ void NaiveCompiler::value_parameter_list(char (&parent)[ALNG], char (&called_fun
         else
             error("实参个数过多");
         
-        //append_midcode("push", nullptr, rs);
+        //append_midcode(str_push, nullptr, rs);
         
         while (symbols[0].sy == comma)
         {
@@ -2511,14 +2450,14 @@ void NaiveCompiler::value_parameter_list(char (&parent)[ALNG], char (&called_fun
                 }
                 else
                     error("实参个数过多");
-                //append_midcode("push", nullptr, rs);
+                //append_midcode(str_push, nullptr, rs);
             }
             else
                 error("检测到非法表达式");
         }
 
         for (int i=count-1; i>=0; i--)
-            append_midcode("push", nullptr, rs[i]);
+            append_midcode(str_push, nullptr, rs[i]);
     }
     //可能为空,故不必报错
 
@@ -2873,7 +2812,7 @@ void NaiveCompiler::void_func_declare()
         strcpy_s(tab[t].parent, string_global);
         tab[t].ref = 0;//初始化参数个数，读参数表时计数
 
-        append_midcode("func_def", nullptr, "void", func_name);
+        append_midcode(str_func_def, nullptr, "void", func_name);
     }
 
     parameter_list(func_name);//可能为空，故不必判断开始符号集
@@ -2890,10 +2829,7 @@ void NaiveCompiler::void_func_declare()
 
     bool has_return=false;
     compound_statement(func_name, has_return);
-    if (has_return == false)
-        append_midcode("ret");
-
-    
+    append_midcode(str_ret);    
 
     if (symbols[0].sy == rbrack)
         insymbol(symbols[0]);
@@ -2910,7 +2846,7 @@ void NaiveCompiler::void_main()
         symbols[0].clear();
         symbols[1].clear();
         end = 0;
-        append_midcode("func_def", nullptr, "void", string_main);
+        append_midcode(str_func_def, nullptr, "void", string_main);
         insymbol(symbols[0]);
     }
     else
@@ -2918,7 +2854,7 @@ void NaiveCompiler::void_main()
         insymbol(symbols[0]);
         if (symbols[0].sy == mainsy)
         {
-            append_midcode("func_def", nullptr, "void", string_main);
+            append_midcode(str_func_def, nullptr, "void", string_main);
             insymbol(symbols[0]);
         }
         else

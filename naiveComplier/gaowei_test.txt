@@ -170,6 +170,35 @@ void condition_test(){
     condition();
 }
 
+void miscellaneous(){
+    int _, a, array[1024], i, endid;
+    char ch1, buf[1024];
+    _ = 1; a = 2;
+    do {
+        array[i] = i;
+        i = i + 1;
+    }while (i < 1024);
+    ch1 = 'a';
+    i = 0;
+    do {
+        buf[i] = ch1;
+        ch1 = ch1 + 1;
+        i = i + 1;
+    }while (ch1 < 127);
+    endid = i;
+    _ = 0;
+
+    do {
+        printf(buf[ (_ * 1 + _ - 1 + 2 / 1 - 1) / 2]);
+        _ = _ + 1;
+    }while (_ < endid);
+    printf(ch1);
+    ;;;;;;;;;{}{};;;;;{}{}{;;;;;;};;;
+}
+void miscellaneous_test(){
+    miscellaneous();
+}
+
 int fibonaci(int n){
     switch (n){
         case 0: return (0);
@@ -181,7 +210,7 @@ int fibonaci(int n){
 
 void fibonaci_test(){
     int n;
-    printf("Fibonaci: Please input a unsigned positive integer ?");
+    printf(" Fibonaci: Please input a unsigned positive integer ? ");
     scanf(n);
     do{
         if (n < 0){
@@ -189,7 +218,7 @@ void fibonaci_test(){
             scanf(n);
         }
         if (n >= 0){
-            printf("The fibonaci's answer is ", fibonaci(n)); printf("\n");    
+            printf(" The fibonaci's answer is ", fibonaci(n)); printf(" \n ");    
         }
     }
     while(n < 0)
@@ -213,7 +242,7 @@ int gcd(int n, int m){
 
 void gcd_test(){
     int n, m;
-    printf("GCD: Please input first unsigned positive integer ?");
+    printf(" GCD: Please input first unsigned positive integer ? ");
     scanf(n);
     do {
         if (n < 0){
@@ -221,7 +250,7 @@ void gcd_test(){
             scanf(n);
         }
     }while (n < 0)
-    printf("GCD: Please input second unsigned positive integer ?");
+    printf(" GCD: Please input second unsigned positive integer ? ");
     scanf(m);
     do {
         if (m < 0){
@@ -229,7 +258,7 @@ void gcd_test(){
             scanf(m);
         }
     }while (m < 0)
-    printf("The gcd's answer is ", gcd(n, m));printf("\n");
+    printf(" The gcd's answer is ", gcd(n, m));printf(" \n ");
 }
 
 int is_prime(int x){
@@ -261,7 +290,7 @@ void prime_factor(int n){
                     if (first == 0)
                         printf("*");
                     first = 1;
-                    printf(i);
+                    printf(" ", i);
                 } while (mod(n, i) == 0);
             }
         }
@@ -271,13 +300,13 @@ void prime_factor(int n){
     if (n != 1){
         if (first == 0)
             printf("*");
-        printf(n);
+        printf(" ", n);
     }
 }
 
 void prime_factor_test(){
     int n;
-    printf("prime_factorization: Please input a unsigned positive integer(<2^31-1) ?");
+    printf(" prime_factorization: Please input a unsigned positive integer(<2^31-1) ? ");
     scanf(n);
     do {
         if (n < 0){
@@ -285,8 +314,8 @@ void prime_factor_test(){
             scanf(n);
         }
     }while (n < 0)
-    printf("The factor of n is\n");
-    prime_factor(n); printf("\n");
+    printf(" The factor of n is \n ");
+    prime_factor(n); printf(" \n ");
 }
 
 int check1(int a, int b, int c, int d){
@@ -360,7 +389,7 @@ void quick_sort_test(){
     printf("output:");
     i = 0;
     do {
-        printf(g_arr[i]);
+        printf(" ", g_arr[i]);
         i = i + 1;
     }while (i < n);
 }
@@ -370,6 +399,7 @@ void main(){
     operator_test();
     dowhile_test();
     condition_test();
+    miscellaneous_test();
     fibonaci_test();
     gcd_test();
     prime_factor_test();
