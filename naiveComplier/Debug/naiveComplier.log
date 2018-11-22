@@ -1,12 +1,27 @@
-﻿生成启动时间为 12/13/2017 2:48:39 PM。
+﻿生成启动时间为 1/13/2018 9:48:19 PM。
      1>项目“C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\naiveComplier\naiveComplier.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\naiveComplier.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         所有输出均为最新。
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt NaiveCompiler.cpp
+         NaiveCompiler.cpp
+     1>c:\users\15061188\documents\visual studio 2010\projects\naivecompiler\naivecomplier\naivecompiler.cpp(4864): warning C4715: “NaiveCompiler::getInByStartLine”: 不是所有的控件路径都返回值
        Link:
-         所有输出均为最新。
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\naiveComplier.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.lib" /MACHINE:X86 Debug\array_tab_entry.obj
+         Debug\basicBlockPoint.obj
+         Debug\conflictPoint.obj
+         Debug\DAG_point.obj
+         Debug\func_tab_entry.obj
+         Debug\main.obj
+         Debug\mips_code.obj
+         Debug\NaiveCompiler.obj
+         Debug\one_mid_code.obj
+         Debug\str_tab_entry.obj
+         Debug\symbol_record.obj
+         Debug\tab_entry.obj
          naiveComplier.vcxproj -> C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"C:\Users\15061188\Documents\Visual Studio 2010\Projects\naiveCompiler\Debug\naiveComplier.exe.manifest" /manifest Debug\naiveComplier.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“Debug\naiveComplier.unsuccessfulbuild”。
          正在对“Debug\naiveComplier.lastbuildstate”执行 Touch 任务。
@@ -14,4 +29,4 @@
 
 生成成功。
 
-已用时间 00:00:00.10
+已用时间 00:00:14.43

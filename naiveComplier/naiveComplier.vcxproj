@@ -76,21 +76,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array_tab_entry.cpp" />
+    <ClCompile Include="basicBlockPoint.cpp" />
+    <ClCompile Include="conflictPoint.cpp" />
+    <ClCompile Include="DAG_point.cpp" />
     <ClCompile Include="func_tab_entry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mips_code.cpp" />
     <ClCompile Include="NaiveCompiler.cpp" />
     <ClCompile Include="one_mid_code.cpp" />
+    <ClCompile Include="str_tab_entry.cpp" />
     <ClCompile Include="symbol_record.cpp" />
     <ClCompile Include="tab_entry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array_tab_entry.h" />
+    <ClInclude Include="basicBlockPoint.h" />
+    <ClInclude Include="conflictPoint.h" />
+    <ClInclude Include="DAG_point.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="func_tab_entry.h" />
     <ClInclude Include="mips_code.h" />
     <ClInclude Include="NaiveCompiler.h" />
     <ClInclude Include="one_mid_code.h" />
+    <ClInclude Include="str_tab_entry.h" />
     <ClInclude Include="symbol_record.h" />
     <ClInclude Include="tab_entry.h" />
   </ItemGroup>

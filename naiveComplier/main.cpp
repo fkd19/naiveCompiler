@@ -18,6 +18,7 @@ int main(int args, char* argv[])//main
     compiler.fout.open("result.txt", ios_base::out);
     //进入所有非终结符处理程序之前都要先读好一个symbol
     compiler.insymbol(compiler.symbols[0]);//预先读一个符号
+    printf("开始生成中间代码……\n");
     compiler.program();//处理 “程序”
     if (!compiler.errors.empty())
     {
@@ -29,9 +30,73 @@ int main(int args, char* argv[])//main
         return 0;
     }
 
-    printf("中间代码生成完毕，生成的中间代码保存在midecode.txt中\n");
-    compiler.midcode2mips();
-    printf("mips汇编代码生成完毕，生成的mips代码保存在mips.asm中\n");
+    printf("中间代码生成完毕\n");
+
+    int mode = -1;
+    printf("请输入编译选项：(1表示做优化且全局寄存器分配使用图着色法，2表示做优化且全局寄存器分配使用引用计数，其他数字表示不做优化)\n");
+    scanf("%d", &mode);
+    compiler.opt_sign = (mode == 1 || mode == 2);
+
+
+    int delay;
+    printf("请选择是否支持延迟槽？0表示忽略，其余数字表示不忽略：\n");
+    scanf("%d", &delay);
+    compiler.delay_mode = (delay != 0);
+    int machineCodeEn;
+    printf("请选择是否生成机器码？1表示mars模式，2表示计组cpu模式，3表示龙芯cpu模式，其余数字表示否：\n");
+    scanf("%d", &machineCodeEn);
+
+    if (mode == 1)
+    {
+        compiler.intcon2ints();
+        printf("开始删除公共子表达式……\n");
+        compiler.del_common_subexpression();
+        compiler.del_common_expression();
+        compiler.print_optimized_midcode("opt_midcode.txt");
+        printf("公共子表达式删除完毕……\n");
+        printf("开始进行活跃变量分析，建立冲突图并使用图着色算法分配全局寄存器……\n");
+        compiler.activeVarAnalysis();
+        printf("分配全局寄存器完毕……\n");
+        compiler.midcode2mips();
+    }
+    else if (mode == 2)
+    {
+        compiler.intcon2ints();
+        printf("开始删除公共子表达式……\n");
+        compiler.del_common_subexpression();
+        compiler.del_common_expression();
+        compiler.print_optimized_midcode("opt_midcode.txt");
+        printf("公共子表达式删除完毕……\n");
+        printf("开始使用引用计数全局寄存器分配……\n");
+        compiler.ref_count();
+        printf("全局寄存器分配完毕……\n");
+        compiler.midcode2mips();
+    }
+    else
+    {
+        cout << "进入不优化模式……" << endl;
+        compiler.midcode2mips();
+    }
+
+    if (machineCodeEn == 1)
+    {
+        printf("开始生成机器码……\n");
+        compiler.mips2machineCode(0x00400000);
+        printf("生成机器码完毕……\n");
+    }
+    else if (machineCodeEn == 2)
+    {
+        printf("开始生成机器码……\n");
+        compiler.mips2machineCode(0x00003000);
+        printf("生成机器码完毕……\n");
+    }
+    else if (machineCodeEn == 2)
+    {
+        printf("开始生成机器码……\n");
+        compiler.mips2machineCode(0xbfc00000);
+        printf("生成机器码完毕……\n");
+    }
+
     printf("编译完成！\n");
 
     compiler.fin.close();
@@ -39,70 +104,3 @@ int main(int args, char* argv[])//main
     return 0;
 }
 
-// test insymbol
-
-
-
-/*
-int main()
-{
-    int k = 0;
-    NaiveCompiler compiler;
-    //compiler.fin.open("testInsymbol.c", ios_base::in);
-    compiler.fin.open("15061188_test.txt", ios_base::in);
-    compiler.fout.open("result.txt", ios_base::out);
-    while (!compiler.fin.eof())
-    {
-        compiler.insymbol(compiler.symbols[0]);
-        k++;
-        switch(compiler.symbols[0].sy)
-        {
-        case casesy:    compiler.fout << k << " " << "case" << endl;    break;
-        case charsy:    compiler.fout << k << " " << "char" << endl;    break;
-        case constsy:   compiler.fout << k << " " << "const" << endl;   break;
-        case dosy:      compiler.fout << k << " " << "do" << endl;      break;
-        case ifsy:      compiler.fout << k << " " << "if" << endl;      break;
-        case intsy:     compiler.fout << k << " " << "int" << endl;     break;
-        case mainsy:    compiler.fout << k << " " << "main" << endl;    break;
-        case returnsy:  compiler.fout << k << " " << "return" << endl;  break;
-        case printfsy:  compiler.fout << k << " " << "printf" << endl;  break;
-        case scanfsy:   compiler.fout << k << " " << "scanf" << endl;   break;
-        case switchsy:  compiler.fout << k << " " << "switch" << endl;  break;
-        case voidsy:    compiler.fout << k << " " << "void" << endl;    break;
-        case whilesy:   compiler.fout << k << " " << "while" << endl;   break;
-        case plussy:    compiler.fout << k << " " << "plus +" << endl;  break;
-        case minussy:   compiler.fout << k << " " << "minus -" << endl; break;
-        case multsy:    compiler.fout << k << " " << "mult *" << endl;  break;
-        case divsy:     compiler.fout << k << " " << "div /" << endl;   break;
-        case becomesy:  compiler.fout << k << " " << "become =" << endl;break;
-        case comma:     compiler.fout << k << " " << "comma ," << endl; break;
-        case semicomma: compiler.fout << k << " " << "semicomma ;" << endl; break;
-        case colon:     compiler.fout << k << " " << "colon :" << endl; break;
-        case beq:       compiler.fout << k << " " << "beq ==" << endl;  break;
-        case bne:       compiler.fout << k << " " << "bne !=" << endl;  break;
-        case bge:       compiler.fout << k << " " << "bge >=" << endl;  break;
-        case bgt:       compiler.fout << k << " " << "bgt >" << endl;   break;
-        case ble:       compiler.fout << k << " " << "ble <=" << endl;  break;
-        case blt:       compiler.fout << k << " " << "blt <" << endl;   break;
-        case charcon:compiler.fout << k << " " << "charcon " << compiler.symbols[0].chval << endl;break;
-        case intcon:compiler.fout << k << " " << "intcon " << compiler.symbols[0].inum << endl;break;
-        case stringcon:
-            {
-                compiler.fout << k << " " << "stringcon " << compiler.symbols[0].strval << endl;
-                break;
-            }
-        case lparent:   compiler.fout << k << " " << "lparent (" << endl;   break;
-        case rparent:   compiler.fout << k << " " << "rparent )" << endl;   break;
-        case lsquare:   compiler.fout << k << " " << "lsquare [" << endl;   break;
-        case rsquare:   compiler.fout << k << " " << "raquare ]" << endl;   break;
-        case lbrack:    compiler.fout << k << " " << "lbrack {" << endl;    break;
-        case rbrack:    compiler.fout << k << " " << "rbrack }" << endl;    break;
-        case ident:     compiler.fout << k << " " << "identity " << compiler.symbols[0].id << endl;break;
-        default:    compiler.fout << k << " " << "ERROR sy" << endl;break;
-        }
-        
-    }
-    compiler.fin.close();
-    compiler.fout.close();
-    return 0;
-}*/

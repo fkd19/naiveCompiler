@@ -1,0 +1,49 @@
+int f()
+para int a
+para int b
+c=a + b
+nop
+ret c
+void main()
+push 2
+push 1
+call f
+a = ret
+a = 5
+a = 10
+b = 10
+m[1]=5
+m[2]=10
+push 3
+push 2
+call f
+m[3]=ret
+m[4]=11
+m[5]=12
+m[6]=18
+push 1
+push 1
+call f
+push 3
+push 2
+call f
+push 5
+push ret
+call f
+push ret
+push ret
+call f
+m[7]=ret
+fangkedongt1=m[1]
+a = fangkedongt1
+fangkedongt2=m[a]
+a = fangkedongt2
+push 4
+push 3
+call f
+fangkedongt3=m[ret]
+a = fangkedongt3
+prt fangkedong_str4 string
+prt a int
+GOTO fkd_program_end
+fkd_program_end:

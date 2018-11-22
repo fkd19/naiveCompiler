@@ -1,0 +1,28 @@
+const int s = 10;
+int f(int a,int b)
+{
+	int c;
+	c = a + b;
+	return (c);
+}
+
+void main()
+{
+	int a,m[12],b;
+	a = f(1,2);
+	a = 5;
+	a = s;
+	b = s;
+	m[1] = 5;
+	m[2] = a;
+	m[3] = f(2,3);
+	m[4] = 11;
+	m[5] = 12;
+	m[6] = 18;
+	m[7] = f(f(1,1),f(f(2,3),5));
+	a = m[1];
+	a = m[a];
+	a = m[f(3,4)];
+	printf("a is:",a);
+	return;
+}

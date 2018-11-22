@@ -1,5 +1,7 @@
 #pragma once
 #include "define.h"
+#include <bitset>
+#include <set>
 
 using namespace std;
 
@@ -8,9 +10,10 @@ class func_tab_entry
 public:
     func_tab_entry(void);
     ~func_tab_entry(void);
-    int parameter_number;//形参个数
-    int level;
-    symbol return_type;
-    //可能还要记录局部变量所占空间大小
+    int paraNum;
+    int space;
+    bitset<GLOABL_REG_NUMBER> alloc_reg;
+
+    void refresh(int address);
 };
 

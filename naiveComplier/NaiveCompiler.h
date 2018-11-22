@@ -11,9 +11,15 @@
 #include "define.h"
 #include "array_tab_entry.h"
 #include "tab_entry.h"
+#include "func_tab_entry.h"
 #include "symbol_record.h"
 #include "one_mid_code.h"
 #include "mips_code.h"
+#include "DAG_point.h"
+#include "basicBlockPoint.h"
+#include "conflictPoint.h"
+#include <iomanip>
+#include "str_tab_entry.h"
 
 using namespace std;
 
@@ -37,27 +43,34 @@ public:
     fstream programma_info;
     fstream mipsfile;
     symbol ksy[NKW];
-    tab_entry tab[TABLE_SIZE];
+    //tab_entry tab[TABLE_SIZE];
+    tab_entry *tab;
     int t;//tab的索引
     array_tab_entry atab[ARRAY_TABLE_SIZE];
+    func_tab_entry ftab[FUNC_TABLE_SIZE];
     int a;//atab的索引
-    int display[LMAX];
-    bool iflag, oflag;//scanf printf 用到的标记
+    int f;//ftab的索引
+    str_tab_entry* stab;
+    int s;
     int dx;//data alloction index 永远指向可以申请的下一个数据地址,供全局变量使用时，表示绝对地址，供局部变量使用时，表示相对于函数开始地址的偏移
+    int global_dx;
     int ln;//行号，输出错误发生的行。
 
     char string_global[ALNG];
     char string_main[ALNG];
     
     int mid_counter;
-    one_mid_code midcode[MID_CODE_SIZE];
-    int f;
+    //one_mid_code midcode[MID_CODE_SIZE];
+    one_mid_code* midcode;
+    int fcount;
+    bool delay_mode;
+    bool opt_sign;
 
-    mips_code mips[MIPS_CODE_SIZE];
+    //mips_code mips[MIPS_CODE_SIZE];
+    mips_code* mips;
     int mips_counter;
 
     list<pair<int, string>> errors;
-    list<pair<char* , int>> data_stack;//索引为辅助变量名，值为变量的地址
 
     set<symbol> f_assign;
     set<symbol> f_call_return_func;
@@ -138,16 +151,17 @@ public:
     void _and(char* rd, char* rs, char* rt);
     void andi(char* rt, char* rs, int imm);
     void _beq(char* rs, char* rt, char* label);
-    void _bge(char* rs, char* rt, char* label);
+    /*void _bge(char* rs, char* rt, char* label);
     void _bgt(char* rs, char* rt, char* label);
     void _ble(char* rs, char* rt, char* label);
-    void _blt(char* rs, char* rt, char* label);
+    void _blt(char* rs, char* rt, char* label);*/
     void _bne(char* rs, char* rt, char* label);
     void div(char* rs, char* rt);
     void generate_label(char* label);
     void _j(char* target);
     void jal(char* target);
-    void jr(int target_register);
+    void jr(char* target_register);
+    void la(char* rt, char* label);
     void lui(char* rt, int imm);
     void lw(char* rt, char* rs, int imm);
     void mflo(char* rd);
@@ -157,8 +171,50 @@ public:
     void _nor(char* rd, char* rs, char* rt);
     void sll(char* rd, char* rt, int imm);
     void slt(char* rd, char* rs, char* rt);
+    void sltu(char* rd, char* rs, char* rt);
+    void slti(char* rt, char* rs, int imm);
+    void sltiu(char* rt, char* rs, int imm);
     void sub(char* rd, char* rs, char* rt);
-    void subi(char* rt, char* rs, int imm);
+    void subu(char* rd, char* rs, char* rt);
     void sw(char* rt, char* rs, int imm);
+    void nop();
     void syscall();
+
+    list<int> basicBlockStartLines;
+    void markBasicBlock();
+    bool isTempVar(char (&name)[ALNG]);
+    bool isCal(int index);//index是中间代码的索引
+    void del_common_expression();//消除公共表达式
+    void print_optimized_midcode(string filepath);
+    list<pair<string, int>> dag_table;//name and node number
+    DAG_point dag[100];
+    list<int> midqueue;//中间节点队列
+    int d;
+    void del_common_subexpression();//消除公共子表达式
+    int getNodeNum(string name);//查找name对应的节点号
+    bool checkParents(int i);//检查节点i的父节点是否都已入中间节点队列
+    void insert_left_child(int i, set<int> &midset);//递归将符合规则的最左子节点加入中间节点队列, i为父节点索引
+    
+    bool checkMidPoint(set<int> &midset);//检查是否还有中间节点未进入中间队列
+    void midcode2DAG(int s, int e); //基本块的左界和和下一个基本块的左界
+    void DAG2midcode(int s, int e);
+
+    void ref_count(bool distributeFlag = true);
+    int distribute_reg(char (&parent)[ALNG], char* reg);
+
+    void activeVarAnalysis();
+    void addNextByLabel(basicBlockPoint &block, int func_start, int func_end);//寻找直接后继基本块的索引,并加入后继集合
+    bitset<MAX_VAR_IN_FUNC> getInByStartLine(int start_line, list<basicBlockPoint> &blocks);
+    void buildConflictGraph(list<basicBlockPoint> &blocks, char (&func_name)[ALNG]);
+    int countNeighbours(conflictPoint *points, int i);
+    void distributeRegByConflictGraph(conflictPoint *points, int length, char (&func_name)[ALNG]);
+    int getIndexOfMaxWeight(conflictPoint *points, int length);
+    int getUnconfilctRegNumber(conflictPoint *points, int length, int index);
+
+    void constantMP(int block_start, int block_end);
+
+    void mips2machineCode(int base);
+    int getAddrOfLabel(char* label);
+    int regName2num(char* reg_name);
+    void intcon2ints();//将整型常量替换成整数
 };

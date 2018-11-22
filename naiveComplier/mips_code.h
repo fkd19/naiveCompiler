@@ -13,6 +13,6 @@ public:
     char rd[ALNG];
     char imm[ALNG];
     char target[ALNG];
-
+    int instruction_addr;
 };
 

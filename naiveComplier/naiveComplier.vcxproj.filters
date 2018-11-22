@@ -39,6 +39,18 @@
     <ClCompile Include="mips_code.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DAG_point.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="basicBlockPoint.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="conflictPoint.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="str_tab_entry.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NaiveCompiler.h">
@@ -63,6 +75,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mips_code.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DAG_point.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="basicBlockPoint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="conflictPoint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="str_tab_entry.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

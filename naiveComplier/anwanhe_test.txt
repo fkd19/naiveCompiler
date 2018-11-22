@@ -1,87 +1,47 @@
 const int a = +5;
 const char m = '3';
 const int z = 6,b = 10;
-CONST char q = 's',p = 't'   ;   
+CONST char q = 's',p = 't';   
 
-int aa,bb,cc,ss[1];     
-char mm,nn,zz,str_test[50]; 
-int number[30];         
+int ss[1];     
+char str_test[50]; 
+int number[30],ans[30];         
 int ra,rb,rc,rd;
 
-void f5(){
-    int a,b,c,d[10],e[4],f,g[5],k,l[6];
-    int m[7],n[8],p,q,h[9];
-    char i,o[4],r[5],s,t,u[65],v___;
-    char w[1],x[5],y,z,__;
-    printf("variable defination passed!");
-    return;
-}
-
-void constF5(){
-    const int a = 10,b = 2,c = 3;            
-    const char d = 'd',e = 'e',f = 'f',g = '+',h = '-';
-    const char i = '8';
-            
-    printf("const defination passed!");
-}
-
-void defi(int value){
-    const int A1 = 10,B1 = 2,C1 = 3;            
+void defi(int value){            
     const char D1 = 'd',E1 = 'e',F1 = 'f',G1 = '+',H1 = '-';
     const char I1 = '8';
 
-    int a,b,c,d[10],e[4],f,g[5],k,l[6];
+    int a,b,c,d[10],e[4],f;
     int m[7],n[8],p,q,h[9];
     char i,o[4],r[5],s,t,u[65],v___;
-    char w[1],x[5],y,z,__;    
     
     a = value;
     d[5] = value;
     a = D1;
-    __ = E1;    
     v___ = G1;
     
     printf("variable and const defination passed!");    
 }
 
 void defi_test(){
-    f5();
-    constF5();
     defi(66);
 }
 
-
-void f1(){}
-
-int f2(int q){
-    return (q);
-}
-
-int f3(){            
-    return (1+9); 
-}
 
 int max(int a,int b){
     if(a > b)
         return (a);
     if(b > a)
         return (b);
-
-    printf("a and b are equal.");
     return (((a) - (-b)) / 2);
 }
 
 void fun_def_test(){
     int c;
-    printf("Please input a number (1-100): ");
-    scanf(c);
-    
-    printf("the max number is:",max(f2(c),f3()));  
-    c = max(max(max(5,+5),5),5);  
-    f1();    
+    c = max(max(max(5,+5),5),5);    
+    printf("c is ",c);
 }
-
-
 
 int calcu(int size){
     int i;
@@ -162,21 +122,20 @@ int charCount(){
     
     do{
         switch(str_test[i]){
-        case 'E':{
+        case 'S':{
             do{
                 if(str_test[i] == 'a')
                     sum = sum + 1;
                 i = i + 1;
             }while(i <= 10);
         }
-        case 'S':
+        case 'E':
             return (sum);
         }
 
         i = i + 1;
     }while(1)    
 }
-
 
 void other_test1(){
     char score;    
@@ -186,14 +145,114 @@ void other_test1(){
     scanf(score);
     switch(score){
     case '1':{
-        printf("Easy ..");
+        printf("Easy");
+        number[0] = 5;
+        number[1] = 7;
+        number[2] = 9;
+        number[3] = 4;
+        number[4] = 1;
+        number[5] = 3;
+        number[6] = 8;
+        number[7] = 10;
+        number[8] = 2;
+        number[9] = 6;
+        ans[0] = 1;
+        ans[1] = 2;
+        ans[2] = 3;
+        ans[3] = 4;
+        ans[4] = 5;
+        ans[5] = 6;
+        ans[6] = 7;
+        ans[7] = 8;
+        ans[8] = 9;
+        ans[9] = 10;
     }
-    case '2':
+    case '2':{
         printf("Middle");
-    case '3':
+        ra = ra + 5;
+        number[0] = 45;
+        number[1] = 19;
+        number[2] = 23;
+        number[3] = 78;
+        number[4] = 83;
+        number[5] = 55;
+        number[6] = 69;
+        number[7] = 37;
+        number[8] = 95;
+        number[9] = 77;
+        number[10] = 145;
+        number[11] = 189;
+        number[12] = 156;
+        number[13] = 123;
+        number[14] = 100;
+        ans[0] = 19;
+        ans[1] = 23;
+        ans[2] = 37;
+        ans[3] = 45;
+        ans[4] = 55;
+        ans[5] = 69;
+        ans[6] = 77;
+        ans[7] = 78;
+        ans[8] = 83;
+        ans[9] = 95;
+        ans[10] = 100;
+        ans[11] = 123;
+        ans[12] = 145;
+        ans[13] = 156;
+        ans[14] = 189;
+    }
+    case '3':{
         printf("Hard");
+        ra = ra + 10;
+        number[0] = 120;
+        number[1] = 854;
+        number[2] = 165;
+        number[3] = 785;
+        number[4] = 666;
+        number[5] = 475;
+        number[6] = 324;
+        number[7] = 218;
+        number[8] = 165;
+        number[9] = 994;    
+        number[10] = 1230;
+        number[11] = 1542;
+        number[12] = 1462;
+        number[13] = 1864;
+        number[14] = 1023;
+        number[15] = 1000;
+        number[16] = 1765;
+        number[17] = 1952;
+        number[18] = 1949;
+        number[19] = 1764;
+        ans[0] = 120;
+        ans[1] = 165;
+        ans[2] = 165;
+        ans[3] = 218;
+        ans[4] = 324;
+        ans[5] = 475;
+        ans[6] = 666;
+        ans[7] = 785;
+        ans[8] = 854;
+        ans[9] = 994;
+        ans[10] = 1000;
+        ans[11] = 1023;
+        ans[12] = 1230;
+        ans[13] = 1462;
+        ans[14] = 1542;
+        ans[15] = 1764;
+        ans[16] = 1765;
+        ans[17] = 1864;
+        ans[18] = 1949;
+        ans[19] = 1952;
+    }
     }
 
+}
+
+void other_test2(){
+    int i;
+    int temp;
+    
     str_test[0] = 'S';
     str_test[1] = 'a';
     str_test[2] = 'a';
@@ -209,86 +268,53 @@ void other_test1(){
     str_test[12] = 'E';
 
     reverse(12);
-    printf("The reverse str of SaaaaabbabbEE is:");
-    printf(str_test[0]);
-    printf(str_test[1]);
-    printf(str_test[2]);
-    printf(str_test[3]);
-    printf(str_test[4]);
-    printf(str_test[5]);
-    printf(str_test[6]);
-    printf(str_test[7]);
-    printf(str_test[8]);
-    printf(str_test[9]);
-    printf(str_test[10]);
-    printf(str_test[11]);
-    printf(str_test[12]);
     
     printf("The character a in str_test is encountered ",charCount());
-
-}
-
-void other_test2(){
-    int i;
-    int temp;
-            
-    printf("Please input four integers (>0, <1000)");;;;; 
-
-       scanf(ra,rb,rc,rd);
-
-    aa = a + (+(-a + m));
-
-    printf("The value of aa is ",aa);
-
-    ss[0] = a + (-a);
-
-    printf("the number of ss[0] is ",ss[0]);   
-
+    
+    ra = 10;
+    rb = 10;
+    rc = 10;
+    rd = 10;
+    ss[0] = a + (-a);   
     ra = (((ra + rb * rc + rd) / ((((rb * rc)) + (ra + rd)) + (88))) + (max(ra,rb))) - str_test[ss[0]] + 'H' + -70;
     
     do{
         ra = +ra + -10;
-    }while(ra > 20)
+    }while(ra >= 20)
 
     if(ra < 20){
         ra = ++10 + 0;  
     }
-   
-    printf("Please input some numbers(non-zero,positive),the count is ",ra);
-
-    i = 0;
-    do{
-        scanf(temp);
-        number[i] = temp;
-        if(number[i])    
-            i = i + 1;
-    }while(i < ra)
 }
 
 void main(){
     int i;
     int sum,cov,aver;
     
-    other_test1();
     other_test2();
+    other_test1();
+    
     
     sum = calcu(ra);    
     aver = sum / ra;
     cov = calcuCov(ra,aver);
     cov = cov / ra;
     printf("The sum of input numbers is ",sum);
-    printf("    ");
     printf("The cov of input number is ",cov);
 
     quick_sort(0,ra-1);  
+
     i = 0;
     do{
-        printf(" ", number[i]);
+        if(number[i] != ans[i]){
+        printf("quick sort failed!");
+            return;
+        }
         i = i + 1;
     }while(i < ra)
     
+    printf("quick sort success!");
     fun_def_test();
     defi_test();
-
     return;
-}
+} 

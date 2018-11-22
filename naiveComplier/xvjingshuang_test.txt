@@ -13,7 +13,6 @@ int compare(int a,int b){
         if(a<=b) return (-1);
 }
 
-
 void line(int n,int m){
     int i,j,stpos[100],posst[100];
     int p,q,move,end,po1,po2,st2;
@@ -25,7 +24,15 @@ void line(int n,int m){
     }while(i<=n)
     i=1;
     do{
-        scanf(p,q);
+        if(i==1){
+                  p=3;q=2;
+         }
+          if(i==2){
+              p=8;q=-3;
+          }
+          if(i==3){
+              p=3;q=-2;
+          }
         if(q!=0){
             move=compare(q,0);
             end=move*q;
@@ -46,15 +53,15 @@ void line(int n,int m){
         printf(posst[1]);
         i=2;
     do{
-        printf(" ",posst[i]);
+        printf(posst[i]);
         i=i+1;
        }while(i<=n)
-    
+    return;
 }
 char f2(char x){
         int z2;
         z2=1;
-        x=x+z2;
+    x=x+z2;
         return (x);
 }
 int fib(int n){
@@ -75,7 +82,7 @@ void nest(){
     a[6]=8;
     b[a[b[a[b[a[0]]]]]]=2333;
     printf(a[0]+b[8]);
-
+    return;
 }
 void t(char x){
     if(x>'c') return;
@@ -88,102 +95,112 @@ void main()
 {
         const int coz=3;
         int a,b,c,d,key,i,sz2[5];
+    int cho;
         char sz[5],e;
         chc='+';
         chd='-';
         b=+3;
         i=0;
     c=-2;
-        printf("test line:");
-        line(8,3);
+    key=1;
+    scanf(cho);
+    switch(cho){
+        case 0:{
 
+            printf("test line:");
+                line(8,3);
 
-        printf("test fib:");
-        d=fib(coz);
-        printf("fib=",d);
-
-    
-        do{
-            sz[i]='a';
-            sz2[i]=i;
-            i=i+1;
-        }while(i<5)
-        scanf(key,a);
-
-
-        printf("test if:");
-        if(key<3){
-            a=a+b;
         }
-        if(key<=3) {
-            b=b-a;
-            sz2[0]=sz2[0]+b;
-            sz[0]=sz[0]+1;
-       }
-        if(key>6) {
-            c=a*b;
-            sz2[1]=sz2[1]+c;
-            sz[1]=sz[1]+1;
+        case 1:{
+            printf("test fib:");
+                d=fib(coz);
+                printf("fib=",d);
+
         }
-        if(key>=6) {
-            d=+a/b;
-            sz2[2]=sz2[2]+d;
-        sz[2]=sz[2]+1;
+        case 2:{
+            do{
+                       sz[i]='a';
+                    sz2[i]=i;
+                    i=i+1;
+                }while(i<5)
+
+
+        
+            scanf(key,a);
+                if(key<3){
+                    a=a+b;
+                printf(a);
+                }
+                if(key<=3) {
+                    b=b-a;
+                    sz2[0]=sz2[0]+b;
+                    sz[0]=sz[0]+1;
+                printf(b);
+                printf(sz[0]);
+                printf(sz2[0]);
+               }
+                if(key>6) {
+                    c=a*b;
+                    sz2[1]=sz2[1]+c;
+                    sz[1]=sz[1]+1;
+                printf(c);
+                printf(sz[1]);
+                printf(sz2[1]);
+                }
+                if(key>=6) {
+                    d=+a/b;
+                    sz2[2]=sz2[2]+d;
+                sz[2]=sz[2]+1;
+                printf(d);
+                printf(sz[2]);
+                printf(sz2[2]);
+                }
+                if(key!=4) {
+                    a=a-1/coz;
+                    sz2[3]=sz2[3]+a+'c';
+                    sz[3]=sz[3]+1;
+                printf(a);
+                printf(sz[3]);
+                printf(sz2[3]);
+                }
+                if(key==4) {
+                    a=-a+2*coz;
+                    sz[4]=sz[4]+1;
+                printf(a);
+                printf(sz[4]);
+                printf(sz2[4]);
+                }    
+                if(key){
+                    printf(+a);
+                }
         }
-        if(key!=4) {
-            a=a-1/coz;
-            sz2[3]=sz2[3]+a+'c';
-            sz[3]=sz[3]+1;
+        case 3:{
+            printf("test function:");
+            if(key) sz2[4]=f(-2,3)+(5+1)*coz;
+                t(conb);
+            printf(f2('a'));
+            printf(sz2[4]);
         }
-        if(key==4) {
-            a=-a+2*coz;
-            sz[4]=sz[4]+1;
-        }
-        if(key){
-            printf(+a);
-            printf(-b);
-            printf(c);
-            printf(d);
-        }
-        i=0;
+        case 4:{
+            printf("test switch:");
+            scanf(key);
+                switch(key*1){
+                    case 0:printf("key is 0");
+                    case 1:printf("key is ",key);
+                    case 2:printf("key is 2");
+                }
+            scanf(e);
+                switch(e){
+                    case 'a':printf(++2);
+                    case 'b':printf(+2+-2);
+                }
 
-
-        printf("test dowhile:");
-        do{
-            printf(sz[i]);
-            printf(sz2[i]);
-            i=i+1;
-        }while(i<5)
-        if(key) sz2[4]=f(-2,3)+(5+1)*coz;
-        t(conb);
-        f(-2,3);
-        printf(conb);
-        scanf(key);
-
-
-        printf("test switch:");
-        switch(key*1){
-            case 0:printf("key is 0");
-            case 1:printf("key is ",key);
-            case 2:printf("key is 2");
-        }
-        printf(f2('a'));
-        scanf(e);
-        switch(e){
-            case 'a':printf(++2);
-            case 'b':printf(+2+2);
         }
 
 
-        printf("test printf:");
-        printf(+-2);
-        printf(+2+-2);
-        printf(0);
-        printf(-5);
-        printf("a=",a);
+    }
 
 
-        printf("test nesting:");
         nest();
         return ;
 }

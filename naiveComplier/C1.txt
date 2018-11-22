@@ -1,0 +1,50 @@
+const int ca = 10,cb = 20;
+int a,b,c[12];
+int count;
+int f(int a,int b)
+{
+	if(a / b <= 1)
+	{
+		return (a/b);
+	}
+	return (f(a/b,b) + b);
+}
+void main()
+{
+	int if_test1,if_test2;
+	int if_test3,if_test4;
+	int if_test5,if_test6;
+	count = 0;
+	if_test1 = 1;
+	if_test2 = 2;
+	c[0] = 12;
+	c[1] = 28;
+	c[2] = 3;
+	a = 6;
+	b = 3;
+	if((if_test1+if_test2 + f(a,b)) - ca - (cb + c[0] + f(c[1],c[2])) <= 0)
+	{
+		a = 18;
+		b = 13;
+		if_test1 = 2;
+		if_test2 = 10;
+		if(if_test2/if_test1 == a - b)
+		{
+			printf(if_test1);
+			printf(if_test2);
+			printf(a);
+			printf(b);
+			c[0] = 20;
+			printf("ok");
+		}
+		if_test3 = 5;
+		if_test4 = 100;
+		do
+		{
+			if_test3 = if_test3 + if_test4 / c[0];
+			count = count + 1;
+		}while(if_test3 <= if_test4)
+		printf(count);
+	}
+	return ;
+}

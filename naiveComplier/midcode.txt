@@ -5,8 +5,7 @@ var int array[100]
 var int o_left
 var int o_right
 var int o_sum
-var char name[24]
-void find_max_subarray()
+void find_max_crossing_subarray()
 para int left_index
 para int right_index
 var int left_sum
@@ -94,7 +93,7 @@ rl = o_left
 rr = o_right
 push right_index
 push left_index
-call find_max_subarray
+call find_max_crossing_subarray
 crossingsum = o_sum
 crossingl = o_left
 crossingr = o_right
@@ -132,149 +131,264 @@ ret sum
 GOTO fkd_switchend21
 fkd_nextcase24:
 fkd_switchend21:
-void main()
+void test1()
 var int arraysize
 var int i
 var int subarraysum_max
-var int temp
-prt 77 char
-prt 97 char
-prt 120 char
-prt 105 char
-prt 109 char
-prt 117 char
-prt 109 char
-prt 32 char
-prt 83 char
-prt 117 char
-prt 98 char
-prt 97 char
-prt 114 char
-prt 114 char
-prt 97 char
-prt 121 char
-prt 32 char
-prt 80 char
-prt 114 char
-prt 111 char
-prt 98 char
-prt 108 char
-prt 101 char
-prt 109 char
-prt 80 char
-prt 108 char
-prt 101 char
-prt 97 char
-prt 115 char
-prt 101 char
-prt 32 char
-prt 105 char
-prt 110 char
-prt 112 char
-prt 117 char
-prt 116 char
-prt 32 char
-prt 97 char
-prt 114 char
-prt 114 char
-prt 97 char
-prt 121 char
-prt 32 char
-prt 115 char
-prt 105 char
-prt 122 char
-prt 101 char
-prt 58 char
-scf arraysize int
-arraysize > maxsize
-BZ fangkd_ifend25
-prt 97 char
-prt 114 char
-prt 114 char
-prt 97 char
-prt 121 char
-prt 115 char
-prt 105 char
-prt 122 char
-prt 101 char
-prt 32 char
-prt 116 char
-prt 111 char
-prt 111 char
-prt 32 char
-prt 98 char
-prt 105 char
-prt 103 char
-GOTO fkd_program_end
-fangkd_ifend25:
 i = 0
-fkd_dobegin26:
-scf temp int
-array[i]=temp
+array[i]=13
+fangkedongt25=i + 1
+i = fangkedongt25
+fangkedongt26=0 - 3
+array[i]=fangkedongt26
 fangkedongt27=i + 1
 i = fangkedongt27
-i < arraysize
-BNZ fkd_dobegin26
-fangkedongt28=arraysize - 1
-push fangkedongt28
+fangkedongt28=0 - 25
+array[i]=fangkedongt28
+fangkedongt29=i + 1
+i = fangkedongt29
+array[i]=20
+fangkedongt30=i + 1
+i = fangkedongt30
+fangkedongt31=0 - 3
+array[i]=fangkedongt31
+fangkedongt32=i + 1
+i = fangkedongt32
+fangkedongt33=0 - 16
+array[i]=fangkedongt33
+fangkedongt34=i + 1
+i = fangkedongt34
+fangkedongt35=0 - 23
+array[i]=fangkedongt35
+fangkedongt36=i + 1
+i = fangkedongt36
+array[i]=18
+fangkedongt37=i + 1
+i = fangkedongt37
+array[i]=20
+fangkedongt38=i + 1
+i = fangkedongt38
+fangkedongt39=0 - 7
+array[i]=fangkedongt39
+fangkedongt40=i + 1
+i = fangkedongt40
+array[i]=12
+fangkedongt41=i + 1
+i = fangkedongt41
+fangkedongt42=0 - 5
+array[i]=fangkedongt42
+fangkedongt43=i + 1
+i = fangkedongt43
+fangkedongt44=0 - 22
+array[i]=fangkedongt44
+fangkedongt45=i + 1
+i = fangkedongt45
+array[i]=15
+fangkedongt46=i + 1
+i = fangkedongt46
+fangkedongt47=0 - 4
+array[i]=fangkedongt47
+fangkedongt48=i + 1
+i = fangkedongt48
+array[i]=7
+fangkedongt49=i + 1
+i = fangkedongt49
+fangkedongt50=i - 1
+push fangkedongt50
 push 0
 call find_maximum_subarray
 subarraysum_max = ret
-prt 77 char
-prt 97 char
-prt 120 char
-prt 105 char
-prt 109 char
-prt 117 char
-prt 109 char
-prt 32 char
-prt 83 char
-prt 117 char
-prt 98 char
-prt 97 char
-prt 114 char
-prt 114 char
-prt 97 char
-prt 121 char
-prt 58 char
-prt 108 char
-prt 101 char
-prt 102 char
-prt 116 char
-prt 95 char
-prt 105 char
-prt 110 char
-prt 100 char
-prt 101 char
-prt 120 char
-prt 61 char
+prt fangkedong_str51 string
+prt fangkedong_str52 string
 prt o_left int
-prt 114 char
-prt 105 char
-prt 103 char
-prt 104 char
-prt 116 char
-prt 95 char
-prt 105 char
-prt 110 char
-prt 100 char
-prt 101 char
-prt 120 char
-prt 61 char
+prt fangkedong_str53 string
 prt o_right int
-prt 83 char
-prt 117 char
-prt 98 char
-prt 97 char
-prt 114 char
-prt 114 char
-prt 97 char
-prt 121 char
-prt 32 char
-prt 115 char
-prt 117 char
-prt 109 char
-prt 61 char
+prt fangkedong_str54 string
 prt subarraysum_max int
+subarraysum_max == 43
+BZ fangkd_ifend55
+o_left == 7
+BZ fangkd_ifend56
+10 == o_right
+BZ fangkd_ifend57
+prt fangkedong_str58 string
+ret
+fangkd_ifend57:
+fangkd_ifend56:
+fangkd_ifend55:
+prt fangkedong_str59 string
+ret
+ret
+void test2()
+var int arraysize
+var int i
+var int subarraysum_max
+i = 0
+array[i]=3
+fangkedongt60=i + 1
+i = fangkedongt60
+array[i]=5
+fangkedongt61=i + 1
+i = fangkedongt61
+fangkedongt62=0 - 2
+array[i]=fangkedongt62
+fangkedongt63=i + 1
+i = fangkedongt63
+fangkedongt64=0 - 6
+array[i]=fangkedongt64
+fangkedongt65=i + 1
+i = fangkedongt65
+fangkedongt66=0 - 5
+array[i]=fangkedongt66
+fangkedongt67=i + 1
+i = fangkedongt67
+array[i]=8
+fangkedongt68=i + 1
+i = fangkedongt68
+array[i]=12
+fangkedongt69=i + 1
+i = fangkedongt69
+fangkedongt70=0 - 5
+array[i]=fangkedongt70
+fangkedongt71=i + 1
+i = fangkedongt71
+fangkedongt72=0 - 6
+array[i]=fangkedongt72
+fangkedongt73=i + 1
+i = fangkedongt73
+array[i]=24
+fangkedongt74=i + 1
+i = fangkedongt74
+array[i]=8
+fangkedongt75=i + 1
+i = fangkedongt75
+array[i]=6
+fangkedongt76=i + 1
+i = fangkedongt76
+fangkedongt77=0 - 8
+array[i]=fangkedongt77
+fangkedongt78=i + 1
+i = fangkedongt78
+fangkedongt79=0 - 7
+array[i]=fangkedongt79
+fangkedongt80=i + 1
+i = fangkedongt80
+fangkedongt81=i - 1
+push fangkedongt81
+push 0
+call find_maximum_subarray
+subarraysum_max = ret
+prt fangkedong_str82 string
+prt fangkedong_str83 string
+prt o_left int
+prt fangkedong_str84 string
+prt o_right int
+prt fangkedong_str85 string
+prt subarraysum_max int
+subarraysum_max == 47
+BZ fangkd_ifend86
+o_left == 5
+BZ fangkd_ifend87
+11 == o_right
+BZ fangkd_ifend88
+prt fangkedong_str89 string
+ret
+fangkd_ifend88:
+fangkd_ifend87:
+fangkd_ifend86:
+prt fangkedong_str90 string
+ret
+ret
+void test3()
+var int arraysize
+var int i
+var int subarraysum_max
+i = 0
+array[i]=1
+fangkedongt91=i + 1
+i = fangkedongt91
+fangkedongt92=0 - 1
+array[i]=fangkedongt92
+fangkedongt93=i + 1
+i = fangkedongt93
+array[i]=2
+fangkedongt94=i + 1
+i = fangkedongt94
+fangkedongt95=0 - 2
+array[i]=fangkedongt95
+fangkedongt96=i + 1
+i = fangkedongt96
+array[i]=3
+fangkedongt97=i + 1
+i = fangkedongt97
+fangkedongt98=0 - 3
+array[i]=fangkedongt98
+fangkedongt99=i + 1
+i = fangkedongt99
+array[i]=4
+fangkedongt100=i + 1
+i = fangkedongt100
+fangkedongt101=0 - 4
+array[i]=fangkedongt101
+fangkedongt102=i + 1
+i = fangkedongt102
+array[i]=5
+fangkedongt103=i + 1
+i = fangkedongt103
+fangkedongt104=0 - 5
+array[i]=fangkedongt104
+fangkedongt105=i + 1
+i = fangkedongt105
+fangkedongt106=i - 1
+push fangkedongt106
+push 0
+call find_maximum_subarray
+subarraysum_max = ret
+prt fangkedong_str107 string
+prt fangkedong_str108 string
+prt o_left int
+prt fangkedong_str109 string
+prt o_right int
+prt fangkedong_str110 string
+prt subarraysum_max int
+subarraysum_max == 5
+BZ fangkd_ifend111
+o_left == 8
+BZ fangkd_ifend112
+8 == o_right
+BZ fangkd_ifend113
+prt fangkedong_str114 string
+ret
+fangkd_ifend113:
+fangkd_ifend112:
+fangkd_ifend111:
+prt fangkedong_str115 string
+ret
+ret
+void main()
+var char tag
+prt fangkedong_str116 string
+scf tag char
+tag == 48
+BZ fkd_nextcase118
+GOTO fkd_switchend117
+fkd_nextcase118:
+tag == 49
+BZ fkd_nextcase119
+call test1
+GOTO fkd_switchend117
+fkd_nextcase119:
+tag == 50
+BZ fkd_nextcase120
+call test2
+GOTO fkd_switchend117
+fkd_nextcase120:
+tag == 51
+BZ fkd_nextcase121
+call test3
+GOTO fkd_switchend117
+fkd_nextcase121:
+fkd_switchend117:
+prt fangkedong_str122 string
 GOTO fkd_program_end
 fkd_program_end:
